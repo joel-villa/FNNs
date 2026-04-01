@@ -1,2 +1,2 @@
 # FNNs
-Using Feedfoward Neural Networksto perform sentiment analysis on IMDB movie reviews
+Using Feedfoward Neural Networks to perform sentiment analysis on IMDB movie reviews
