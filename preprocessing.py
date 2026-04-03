@@ -41,20 +41,17 @@ def load_data_from_aclImdb():
 
     np.random.seed(0)
     df = df.reindex(np.random.permutation(df.index))
-    df.to_csv('movie_data.csv', index=False, encoding='utf-8')
+    df.to_csv('data/movie_data.csv', index=False, encoding='utf-8')
 
 def preprocessor(text):
-    text = re.sub('<[^>]*>', '', text)
-    emoticons = re.findall('(?::|;|=)(?:-)?(?:\)|\(|D|P)',
-                           text)
-    text = (re.sub('[\W]+', ' ', text.lower()) +
-            ' '.join(emoticons).replace('-', ''))
+    text = re.sub(r'<[^>]*>', '', text)
+    emoticons = re.findall(r'(?::|;|=)(?:-)?(?:\)|\(|D|P)', text)
+    text = (re.sub(r'[\W]+', ' ', text.lower()) + ' '.join(emoticons).replace('-', ''))
     return text
 
 
 df = pd.read_csv('data/movie_data.csv', encoding='utf-8')
 df = df.rename(columns={"0": "review", "1": "sentiment"})
-df.head(3)
 
 #Clean the data
 df['review'] = df['review'].apply(preprocessor)
@@ -63,21 +60,36 @@ df['review'] = df['review'].apply(preprocessor)
 tfidf = TfidfTransformer(use_idf=True,
                          norm='l2',
                          smooth_idf=True)
-np.set_printoptions(precision=2)
 
-count = CountVectorizer()
+# set max features to 5000
+count = CountVectorizer(max_features=5000)
 
-X = tfidf.fit_transform(count.fit_transform(df['review']))
+x_counts = count.fit_transform(df['review'])
+x = tfidf.fit_transform(x_counts)
 
-#Split data
-X_df = pd.DataFrame(X.toarray())
-X_df['sentiment'] = df['sentiment'].values
+x_dense = x.toarray().astype(np.float32)
 
-split_idx = int(0.7 * len(X_df))
+x_df = pd.DataFrame(x_dense)
+x_df['sentiment'] = df['sentiment'].values
 
-train_df = X_df.iloc[:split_idx]
-test_df = X_df.iloc[split_idx:]
+# split data here
+split_idx = int(0.7 * len(x_df))
+train_df = x_df.iloc[:split_idx]
+test_df = x_df.iloc[split_idx:]
 
-train_df.to_csv('data/train_data.csv', index=False, encoding='utf-8')
-test_df.to_csv('data/test_data.csv', index=False, encoding='utf-8')
+# train_df.to_csv('data/train_data.csv', index=False, encoding='utf-8')
+# test_df.to_csv('data/test_data.csv', index=False, encoding='utf-8')
 
+train_x = train_df.drop(columns=['sentiment']).to_numpy(dtype=np.float32)
+train_y = train_df['sentiment'].to_numpy()
+
+test_x = test_df.drop(columns=['sentiment']).to_numpy(dtype=np.float32)
+test_y = test_df['sentiment'].to_numpy()
+
+np.savez_compressed(
+    'data/imdb_tfidf_data.npz',
+    x_train=train_x,
+    y_train=train_y,
+    x_test=test_x,
+    y_test=test_y
+)
