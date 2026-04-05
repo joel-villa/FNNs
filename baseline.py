@@ -112,25 +112,43 @@ def test_fnn(onnx_path="models/baseline.onnx"):
 def get_path(hlayers, hneurons, lr, wd, iter):
     return f"models/baseline_{hlayers}_hlayers_{hneurons}_hneurons_{lr}_{wd}_{iter}.onnx"
 
-if __name__ == "__main__":
+def test_models(h_layers, h_neurons, lr, wd, num_iter):
+    best = {"accuracy": 0, 
+            "h_layers": 0, 
+            "h_nuerons": 0, 
+            "lr": lr, 
+            "wd": wd, 
+            "num_iter": num_iter}
 
-    # h_neur = 4
-    # n_h_layers = 2
+    for hl in h_layers:
+        for hn in h_neurons:
+            path = get_path(hl, hn, lr, wd, num_iter)
+            accuracy = test_fnn(path)
+            if (accuracy > best[0]):
+                best["accuracy"]  = accuracy
+                best["h_layers"]  = hl
+                best["h_nuerons"] = hn
+    return best
+
+if __name__ == "__main__":
     lr = 0.001
     wd = 1e-4
     num_iter = 2
 
-    h_nuers = [2, 4, 8, 16]
-    h_layers_opts = [2, 4, 8, 16, 32]
-    for h_neur in h_nuers:
-        for n_h_layers in h_layers_opts:
-            path = get_path(n_h_layers, h_neur, lr, wd, num_iter)
-            print(f"{path}, ", end="")
-            train_fnn(num_iter=num_iter,
-                      hidden_neurons=h_neur, 
-                      num_hidden_layers=n_h_layers, 
-                      learning_rate=lr,
-                      weight_decay=wd,
-                      save_path=path)
+    h_neurons = [2, 4, 8, 16]
+    h_layers = [2, 4, 8, 16, 32]
+    # for h_neur in h_neurons:
+    #     for n_h_layers in h_layers:
+    #         path = get_path(n_h_layers, h_neur, lr, wd, num_iter)
+    #         print(f"{path}, ", end="")
+    #         train_fnn(num_iter=num_iter,
+    #                   hidden_neurons=h_neur, 
+    #                   num_hidden_layers=n_h_layers, 
+    #                   learning_rate=lr,
+    #                   weight_decay=wd,
+    #                   save_path=path)
     
+    results = test_models(h_layers, h_neurons, lr, wd, num_iter)
+    print(results)
+
     # test_fnn(get_path(2, 2, lr, wd, num_iter))
