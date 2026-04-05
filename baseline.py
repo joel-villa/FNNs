@@ -108,22 +108,27 @@ def test_fnn(onnx_path="models/baseline.onnx"):
 
     return accuracy
 
-def get_path(hlayers, hneurons, lr, wd):
-    return f"models/baseline_{hlayers}_hlayers_{hneurons}_hneurons_{lr}_{wd}.onnx"
+def get_path(hlayers, hneurons, lr, wd, iter):
+    return f"models/baseline_{hlayers}_hlayers_{hneurons}_hneurons_{lr}_{wd}_{iter}.onnx"
 
 if __name__ == "__main__":
 
-    h_neur = 4
-    n_h_layers = 2
+    # h_neur = 4
+    # n_h_layers = 2
     lr = 0.001
     wd = 1e-4
-    num_iter = 4
+    num_iter = 2
 
-    train_fnn(num_iter=num_iter,
-              hidden_neurons=h_neur, 
-              num_hidden_layers=n_h_layers, 
-              learning_rate=lr,
-              weight_decay=wd,
-              save_path=get_path(n_h_layers, h_neur, lr, wd))
+    h_nuers = [2]
+    h_layers_opts = [2]
+    for h_neur in h_nuers:
+        for n_h_layers in h_layers_opts:
+            path = get_path(n_h_layers, h_neur, lr, wd, num_iter)
+            train_fnn(num_iter=num_iter,
+                      hidden_neurons=h_neur, 
+                      num_hidden_layers=n_h_layers, 
+                      learning_rate=lr,
+                      weight_decay=wd,
+                      save_path=path)
     
-    test_fnn(get_path(n_h_layers, h_neur, lr, wd))
+    # test_fnn(get_path(n_h_layers, h_neur, lr, wd, num_iter))
