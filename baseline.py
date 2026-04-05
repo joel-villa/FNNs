@@ -80,7 +80,8 @@ def train_fnn(num_iter, num_hidden_layers, hidden_neurons, learning_rate, weight
                   input_names=["input"],   # Rename inputs for the ONNX model
                   output_names=["output"], # Rename output
                   dynamo=True,             # True or False to select the exporter to use
-                  dynamic_axes={"input": {0: "batch_size"}, "output": {0: "batch_size"}} #Allowing for variable size accesing
+                  dynamic_shapes={"input": {0: torch.export.Dim("batch")}} #Allowing for variable size accesing
+                  # "output": {0: "batch_size"}
                   )
 def sigmoid(x):
     # The sigmoid function
@@ -117,14 +118,14 @@ if __name__ == "__main__":
     # n_h_layers = 2
     lr = 0.001
     wd = 1e-4
-    num_iter = 32
+    num_iter = 2
 
-    h_nuers = [2, 4, 8, 16]
-    h_layers_opts = [2, 4, 8, 16, 32]
+    h_nuers = [2]
+    h_layers_opts = [2]
     for h_neur in h_nuers:
         for n_h_layers in h_layers_opts:
             path = get_path(n_h_layers, h_neur, lr, wd, num_iter)
-            print(path)
+            print(f"{path}, ", end="")
             train_fnn(num_iter=num_iter,
                       hidden_neurons=h_neur, 
                       num_hidden_layers=n_h_layers, 
