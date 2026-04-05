@@ -117,10 +117,10 @@ if __name__ == "__main__":
     # n_h_layers = 2
     lr = 0.001
     wd = 1e-4
-    num_iter = 2
+    num_iter = 32
 
-    h_nuers = [2]
-    h_layers_opts = [2]
+    h_nuers = [2, 4, 8, 16]
+    h_layers_opts = [2, 4, 8, 16, 32]
     for h_neur in h_nuers:
         for n_h_layers in h_layers_opts:
             path = get_path(n_h_layers, h_neur, lr, wd, num_iter)
@@ -131,4 +131,4 @@ if __name__ == "__main__":
                       weight_decay=wd,
                       save_path=path)
     
-    # test_fnn(get_path(n_h_layers, h_neur, lr, wd, num_iter))
+    # test_fnn(get_path(2, 2, lr, wd, num_iter))
