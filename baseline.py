@@ -102,7 +102,7 @@ def test_fnn(onnx_path="models/baseline.onnx"):
     return accuracy
 
 def get_path(hlayers, hneurons, lr, wd):
-    return f"models/baseline/{hlayers}_hlayers_{hneurons}_hneurons_{lr}_{wd}.onnx"
+    return f"models/baseline_{hlayers}_hlayers_{hneurons}_hneurons_{lr}_{wd}.onnx"
 
 if __name__ == "__main__":
 
