@@ -142,17 +142,17 @@ if __name__ == "__main__":
     lr = 0.001
     wd = 1e-4
 
-    num_iter = 2
-    h_neurons = [2]
-    h_layers = [2]
-    
-    # num_iter = 128
-    # h_neurons = [1, 2, 4, 8, 16]
-    # h_layers = [1, 2, 3, 4, 5, 8, 16, 32]
+    # num_iter = 2
+    # h_neurons = [2]
+    # h_layers = [2]
 
     # num_iter = 32
     # h_neurons = [2, 4, 8, 16]
     # h_layers = [2, 4, 8, 16, 32]
+
+    num_iter = 128
+    h_neurons = [1, 2, 4, 8, 16]
+    h_layers = [1, 2, 3, 4, 5, 8, 16, 32]
 
     for hl in h_layers:
         for hn in h_neurons:
@@ -165,7 +165,7 @@ if __name__ == "__main__":
                       weight_decay=wd,
                       save_path=path)
     
-    results = test_models(h_layers, h_neurons, lr, wd, num_iter)
-    print(results)
+    # results = test_models(h_layers, h_neurons, lr, wd, num_iter)
+    # print(results)
 
     # test_fnn(get_path(2, 2, lr, wd, num_iter))
