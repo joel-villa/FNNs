@@ -146,18 +146,18 @@ if __name__ == "__main__":
 
     # h_neurons = [2]
     # h_layers = [2]
-    for hn in h_neurons:
-        for hl in h_layers:
-            path = get_path(hl, hn, lr, wd, num_iter)
-            print(f"{path}, ", end="")
-            train_fnn(num_iter=num_iter,
-                      hidden_neurons=hn, 
-                      num_hidden_layers=hl, 
-                      learning_rate=lr,
-                      weight_decay=wd,
-                      save_path=path)
+    # for hn in h_neurons:
+    #     for hl in h_layers:
+    #         path = get_path(hl, hn, lr, wd, num_iter)
+    #         print(f"{path}, ", end="")
+    #         train_fnn(num_iter=num_iter,
+    #                   hidden_neurons=hn, 
+    #                   num_hidden_layers=hl, 
+    #                   learning_rate=lr,
+    #                   weight_decay=wd,
+    #                   save_path=path)
     
-    #results = test_models(h_layers, h_neurons, lr, wd, num_iter)
-    #print(results)
+    results = test_models(h_layers, h_neurons, lr, wd, num_iter)
+    print(results)
 
     # test_fnn(get_path(2, 2, lr, wd, num_iter))
