@@ -25,6 +25,7 @@ def make_fnn(h_neurons, num_hidden_layers):
     # Output layer
     layers.append(torch.nn.Linear(h_neurons, OUTPUT_NEURONS))
 
+    # * in python -> convert list to function
     return torch.nn.Sequential(*layers)
 
 def prepare_data(x, y):
@@ -116,54 +117,68 @@ def test_fnn(onnx_path="models/baseline.onnx"):
 def get_path(hlayers, hneurons, lr, wd, iter):
     return f"models/baseline_{hlayers}_hlayers_{hneurons}_hneurons_{lr}_{wd}_{iter}.onnx"
 
-def test_models(h_layers, h_neurons, lr, wd, num_iter):
+def test_models(h_layers, h_neurons, lrs, wds, num_iters):
     best = {"test_acc": 0,
             "train_acc": 0, 
             "h_layers": 0, 
             "h_neurons": 0, 
-            "lr": lr, 
-            "wd": wd, 
-            "num_iter": num_iter}
+            "lr": 0, 
+            "wd": 0, 
+            "num_iter": 0}
 
     for hl in h_layers:
         for hn in h_neurons:
-            path = get_path(hl, hn, lr, wd, num_iter)
-            test_acc, train_acc = test_fnn(path)
-            print(f"{hl} hidden layers, {hn} hidden neurons, {train_acc} train accuracy, {test_acc} test accuracy")
-
-            if (test_acc > best["test_acc"]):
-                best["test_acc"]  = test_acc
-                best["train_acc"] = train_acc
-                best["h_layers"]  = hl
-                best["h_neurons"] = hn
+            for lr in lrs:
+                for wd in wds:
+                    for ni in num_iters:
+                        path = get_path(hl, hn, lr, wd, ni)
+                        test_acc, train_acc = test_fnn(path)
+                        print(f"{hl} hidden layers, {hn} hidden neurons, {train_acc} train accuracy, {test_acc} test accuracy")
+            
+                        if (test_acc > best["test_acc"]):
+                            # new best test accuracy, update all
+                            best["test_acc"]  = test_acc
+                            best["train_acc"] = train_acc
+                            best["h_layers"]  = hl
+                            best["h_neurons"] = hn
+                            best["lr"] = lr
+                            best["wd"] = wd
+                            best["num_iter"] = ni
     return best
 
+def generate_models(h_layers, h_neurons, lrs, wds, num_iters):
+
+    for hl in h_layers:
+        for hn in h_neurons:
+            for lr in lrs:
+                for wd in wds:
+                    for ni in num_iters:
+                        path = get_path(hl, hn, lr, wd, ni)
+                        print(f"{path}, ", end="")
+                        train_fnn(num_iter=ni,
+                                  hidden_neurons=hn, 
+                                  num_hidden_layers=hl, 
+                                  learning_rate=lr,
+                                  weight_decay=wd,
+                                  save_path=path)
+
 if __name__ == "__main__":
-    lr = 0.001
-    wd = 1e-4
+    lr = [0.001]
+    wd = [0.0001]
 
-    # num_iter = 32
-    # h_neurons = [2]
-    # h_layers = [2]
+    num_iter = [2]
+    h_neurons = [2]
+    h_layers = [2]
 
-    # num_iter = 32
+    # num_iter = [32]
     # h_neurons = [2, 4, 8, 16]
     # h_layers = [2, 4, 8, 16, 32]
 
-    num_iter = 128
-    h_neurons = [1, 2, 4, 8, 16]
-    h_layers = [1, 2, 3, 4, 5, 8, 16, 32]
+    # num_iter = [128]
+    # h_neurons = [1, 2, 4, 8, 16]
+    # h_layers = [1, 2, 3, 4, 5, 8, 16, 32]
 
-    for hl in h_layers:
-        for hn in h_neurons:
-            path = get_path(hl, hn, lr, wd, num_iter)
-            print(f"{path}, ", end="")
-            train_fnn(num_iter=num_iter,
-                      hidden_neurons=hn, 
-                      num_hidden_layers=hl, 
-                      learning_rate=lr,
-                      weight_decay=wd,
-                      save_path=path)
-    
+    generate_models(h_layers, h_neurons, lr, wd, num_iter)
     results = test_models(h_layers, h_neurons, lr, wd, num_iter)
+
     print(results)
