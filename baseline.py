@@ -133,7 +133,7 @@ def test_models(h_layers, h_neurons, lrs, wds, num_iters):
                     for ni in num_iters:
                         path = get_path(hl, hn, lr, wd, ni)
                         test_acc, train_acc = test_fnn(path)
-                        print(f"{hl} hidden layers, {hn} hidden neurons, {train_acc} train accuracy, {test_acc} test accuracy")
+                        print(f"hl = {hl}, hn = {hn}, lr = {lr}, wd = {wd}, ni = {ni}, train accuracy: {train_acc}, test accuracy: {test_acc}")
             
                         if (test_acc > best["test_acc"]):
                             # new best test accuracy, update all
