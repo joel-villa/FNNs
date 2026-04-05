@@ -165,7 +165,5 @@ if __name__ == "__main__":
                       weight_decay=wd,
                       save_path=path)
     
-    # results = test_models(h_layers, h_neurons, lr, wd, num_iter)
-    # print(results)
-
-    # test_fnn(get_path(2, 2, lr, wd, num_iter))
+    results = test_models(h_layers, h_neurons, lr, wd, num_iter)
+    print(results)
