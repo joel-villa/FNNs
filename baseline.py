@@ -120,7 +120,7 @@ def test_models(h_layers, h_neurons, lr, wd, num_iter):
     best = {"test_acc": 0,
             "train_acc": 0, 
             "h_layers": 0, 
-            "h_nuerons": 0, 
+            "h_neurons": 0, 
             "lr": lr, 
             "wd": wd, 
             "num_iter": num_iter}
@@ -131,33 +131,39 @@ def test_models(h_layers, h_neurons, lr, wd, num_iter):
             test_acc, train_acc = test_fnn(path)
             print(f"{hl} hidden layers, {hn} hidden neurons, {train_acc} train accuracy, {test_acc} test accuracy")
 
-            if (train_acc > best["train_acc"]):
-                best["train_acc"] = train_acc
+            if (test_acc > best["test_acc"]):
                 best["test_acc"]  = test_acc
+                best["train_acc"] = train_acc
                 best["h_layers"]  = hl
-                best["h_nuerons"] = hn
+                best["h_neurons"] = hn
     return best
 
 if __name__ == "__main__":
     lr = 0.001
     wd = 1e-4
-    num_iter = 32
 
-    h_neurons = [2, 4, 8, 16]
-    h_layers = [2, 4, 8, 16, 32]
+    num_iter = 2
+    h_neurons = [2]
+    h_layers = [2]
+    
+    # num_iter = 128
+    # h_neurons = [1, 2, 4, 8, 16]
+    # h_layers = [1, 2, 3, 4, 5, 8, 16, 32]
 
-    # h_neurons = [2]
-    # h_layers = [2]
-    # for hn in h_neurons:
-    #     for hl in h_layers:
-    #         path = get_path(hl, hn, lr, wd, num_iter)
-    #         print(f"{path}, ", end="")
-    #         train_fnn(num_iter=num_iter,
-    #                   hidden_neurons=hn, 
-    #                   num_hidden_layers=hl, 
-    #                   learning_rate=lr,
-    #                   weight_decay=wd,
-    #                   save_path=path)
+    # num_iter = 32
+    # h_neurons = [2, 4, 8, 16]
+    # h_layers = [2, 4, 8, 16, 32]
+
+    for hl in h_layers:
+        for hn in h_neurons:
+            path = get_path(hl, hn, lr, wd, num_iter)
+            print(f"{path}, ", end="")
+            train_fnn(num_iter=num_iter,
+                      hidden_neurons=hn, 
+                      num_hidden_layers=hl, 
+                      learning_rate=lr,
+                      weight_decay=wd,
+                      save_path=path)
     
     results = test_models(h_layers, h_neurons, lr, wd, num_iter)
     print(results)
