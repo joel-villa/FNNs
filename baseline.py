@@ -124,6 +124,7 @@ if __name__ == "__main__":
     for h_neur in h_nuers:
         for n_h_layers in h_layers_opts:
             path = get_path(n_h_layers, h_neur, lr, wd, num_iter)
+            print(path)
             train_fnn(num_iter=num_iter,
                       hidden_neurons=h_neur, 
                       num_hidden_layers=n_h_layers, 
