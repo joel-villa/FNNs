@@ -50,14 +50,18 @@ def train_fnn(num_iter, num_hidden_layers, hidden_neurons, learning_rate, weight
     L = torch.nn.BCEWithLogitsLoss()
 
     start = time.perf_counter() #Timing training
+    # Batch version (recommended)
+    x_tensor = torch.from_numpy(x_train).float()   # shape (N, INPUT_DIMENSION)
+    y_tensor = torch.from_numpy(y_train).float()   # shape (N,1)
 
+    batch_size = 32
     for epoch in range(num_iter):
-        for (x, y) in zip(x_train, y_train):
-            x_tensor = torch.from_numpy(x).float().view(1, INPUT_DIMENSION)
-            y_tensor = torch.from_numpy(y).float().view(1,1)
+        for i in range(0, len(x_tensor), batch_size):
+            xb = x_tensor[i:i+batch_size]
+            yb = y_tensor[i:i+batch_size]
 
-            output = net.forward(x_tensor)
-            loss = L(output, y_tensor)
+            output = net.forward(xb)
+            loss = L(output, yb)
             loss.backward()
             optimizer.step()
             optimizer.zero_grad()
@@ -68,12 +72,15 @@ def train_fnn(num_iter, num_hidden_layers, hidden_neurons, learning_rate, weight
 
 
     # Saving in ONNX file
+    net.eval()
     tensor_x = torch.rand((1, INPUT_DIMENSION), dtype=torch.float32)
-    torch.onnx.export(net,                # model to export
-                  (tensor_x,),            # inputs of the model,
-                  save_path,              # filename of the ONNX model
-                  input_names=["input"],  # Rename inputs for the ONNX model
-                  dynamo=True             # True or False to select the exporter to use
+    torch.onnx.export(net,                 # model to export
+                  (tensor_x,),             # inputs of the model,
+                  save_path,               # filename of the ONNX model
+                  input_names=["input"],   # Rename inputs for the ONNX model
+                  output_names=["output"], # Rename output
+                  dynamo=True,             # True or False to select the exporter to use
+                  dynamic_axes={"input": {0: "batch_size"}, "output": {0: "batch_size"}} #Allowing for variable size accesing
                   )
 def sigmoid(x):
     # The sigmoid function
@@ -106,11 +113,11 @@ def get_path(hlayers, hneurons, lr, wd):
 
 if __name__ == "__main__":
 
-    h_neur = 64
+    h_neur = 4
     n_h_layers = 2
     lr = 0.001
     wd = 1e-4
-    num_iter = 16
+    num_iter = 4
 
     train_fnn(num_iter=num_iter,
               hidden_neurons=h_neur, 
