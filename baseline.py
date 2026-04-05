@@ -142,7 +142,7 @@ if __name__ == "__main__":
     lr = 0.001
     wd = 1e-4
 
-    # num_iter = 2
+    # num_iter = 32
     # h_neurons = [2]
     # h_layers = [2]
 
