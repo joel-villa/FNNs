@@ -15,11 +15,15 @@ OUTPUT_NEURONS = 1
 # currenly just copied over from baseline
 # TODO: implement kfold cross-validation
 
-def train_fnn_kfold(num_iter, num_hidden_layers, hidden_neurons, learning_rate, weight_decay, save_path=None):
+def train_fnn_kfold(num_iter, num_hidden_layers, hidden_neurons, learning_rate, weight_decay, k_folds=5, save_path=None):
+    # some GPU stuff I was testing
     # device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     # net = make_fnn(h_neurons=hidden_neurons, num_hidden_layers=num_hidden_layers).to(device)
 
     net = make_fnn(h_neurons=hidden_neurons, num_hidden_layers=num_hidden_layers)
+
+    # make kfold
+    kfold = KFold(n_splits=k_folds, shuffle=True)
 
     # Get data
     x_train, y_train, _, _ = npz_load()
