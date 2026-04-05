@@ -49,6 +49,8 @@ def train_fnn(num_iter, num_hidden_layers, hidden_neurons, learning_rate, weight
     
     L = torch.nn.BCEWithLogitsLoss()
 
+    start = time.perf_counter() #Timing training
+
     for epoch in range(num_iter):
         for (x, y) in zip(x_train, y_train):
             x_tensor = torch.from_numpy(x).float().view(1, INPUT_DIMENSION)
@@ -59,6 +61,11 @@ def train_fnn(num_iter, num_hidden_layers, hidden_neurons, learning_rate, weight
             loss.backward()
             optimizer.step()
             optimizer.zero_grad()
+
+    end = time.perf_counter()
+
+    print(f"Train time: {end - start:.6f} seconds")
+
 
     # Saving in ONNX file
     tensor_x = torch.rand((1, INPUT_DIMENSION), dtype=torch.float32)
@@ -105,13 +112,11 @@ if __name__ == "__main__":
     wd = 1e-4
     num_iter = 16
 
-    start = time.perf_counter()
     train_fnn(num_iter=num_iter,
               hidden_neurons=h_neur, 
               num_hidden_layers=n_h_layers, 
               learning_rate=lr,
               weight_decay=wd,
               save_path=get_path(n_h_layers, h_neur, lr, wd))
-    end = time.perf_counter()
-
-    print(f"Train time: {end - start:.6f} seconds")
+    
+    test_fnn(get_path(n_h_layers, h_neur, lr, wd))
