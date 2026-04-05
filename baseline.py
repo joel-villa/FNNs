@@ -50,9 +50,9 @@ def train_fnn(num_iter, num_hidden_layers, hidden_neurons, learning_rate, weight
     L = torch.nn.BCEWithLogitsLoss()
 
     start = time.perf_counter() #Timing training
-    # Batch version (recommended)
-    x_tensor = torch.from_numpy(x_train).float()   # shape (N, INPUT_DIMENSION)
-    y_tensor = torch.from_numpy(y_train).float()   # shape (N,1)
+    # Batch version 
+    x_tensor = torch.from_numpy(x_train).float()  
+    y_tensor = torch.from_numpy(y_train).float()  
 
     batch_size = 32
     for epoch in range(num_iter):
