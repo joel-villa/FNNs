@@ -217,7 +217,7 @@ if __name__ == "__main__":
 
     batch_size = 32
 
-    dropout_probabilities = [0.5]
+    dropout_probabilities = [0.2, 0.3, 0.4, 0.5, 0.6, 0.7]
 
     best_results = {
         "train_acc": 0.0,

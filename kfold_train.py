@@ -223,7 +223,7 @@ if __name__ == "__main__":
     learning_rate = 1e-5
     weight_decay = 0.001
 
-    k_values = [2]
+    k_values = [2, 4, 8, 16, 32]
 
     best, all_results = test_kfold_values(
         num_iter=num_iter,
