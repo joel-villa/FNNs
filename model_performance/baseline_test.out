@@ -1,0 +1,128 @@
+models/baseline_1_hlayers_1_hneurons_0.001_0.0001_64.onnx, Train time: 51.180449 seconds
+models/baseline_1_hlayers_2_hneurons_0.001_0.0001_64.onnx, Train time: 62.961005 seconds
+models/baseline_1_hlayers_4_hneurons_0.001_0.0001_64.onnx, Train time: 68.893186 seconds
+models/baseline_1_hlayers_8_hneurons_0.001_0.0001_64.onnx, Train time: 45.487404 seconds
+models/baseline_1_hlayers_16_hneurons_0.001_0.0001_64.onnx, Train time: 81.107913 seconds
+models/baseline_1_hlayers_32_hneurons_0.001_0.0001_64.onnx, Train time: 75.609948 seconds
+models/baseline_1_hlayers_64_hneurons_0.001_0.0001_64.onnx, Train time: 87.567191 seconds
+models/baseline_1_hlayers_128_hneurons_0.001_0.0001_64.onnx, Train time: 200.036322 seconds
+models/baseline_1_hlayers_256_hneurons_0.001_0.0001_64.onnx, Train time: 443.884438 seconds
+models/baseline_2_hlayers_1_hneurons_0.001_0.0001_64.onnx, Train time: 75.382543 seconds
+models/baseline_2_hlayers_2_hneurons_0.001_0.0001_64.onnx, Train time: 54.669513 seconds
+models/baseline_2_hlayers_4_hneurons_0.001_0.0001_64.onnx, Train time: 48.111945 seconds
+models/baseline_2_hlayers_8_hneurons_0.001_0.0001_64.onnx, Train time: 57.434905 seconds
+models/baseline_2_hlayers_16_hneurons_0.001_0.0001_64.onnx, Train time: 65.915104 seconds
+models/baseline_2_hlayers_32_hneurons_0.001_0.0001_64.onnx, Train time: 94.725237 seconds
+models/baseline_2_hlayers_64_hneurons_0.001_0.0001_64.onnx, Train time: 120.577246 seconds
+models/baseline_2_hlayers_128_hneurons_0.001_0.0001_64.onnx, Train time: 265.491018 seconds
+models/baseline_2_hlayers_256_hneurons_0.001_0.0001_64.onnx, Train time: 613.614900 seconds
+models/baseline_4_hlayers_1_hneurons_0.001_0.0001_64.onnx, Train time: 74.513405 seconds
+models/baseline_4_hlayers_2_hneurons_0.001_0.0001_64.onnx, Train time: 65.763350 seconds
+models/baseline_4_hlayers_4_hneurons_0.001_0.0001_64.onnx, Train time: 83.058823 seconds
+models/baseline_4_hlayers_8_hneurons_0.001_0.0001_64.onnx, Train time: 83.008052 seconds
+models/baseline_4_hlayers_16_hneurons_0.001_0.0001_64.onnx, Train time: 91.234124 seconds
+models/baseline_4_hlayers_32_hneurons_0.001_0.0001_64.onnx, Train time: 162.515198 seconds
+models/baseline_4_hlayers_64_hneurons_0.001_0.0001_64.onnx, Train time: 278.603027 seconds
+models/baseline_4_hlayers_128_hneurons_0.001_0.0001_64.onnx, Train time: 382.062676 seconds
+models/baseline_4_hlayers_256_hneurons_0.001_0.0001_64.onnx, Train time: 718.621077 seconds
+models/baseline_8_hlayers_1_hneurons_0.001_0.0001_64.onnx, Train time: 110.985226 seconds
+models/baseline_8_hlayers_2_hneurons_0.001_0.0001_64.onnx, Train time: 124.424886 seconds
+models/baseline_8_hlayers_4_hneurons_0.001_0.0001_64.onnx, Train time: 144.436653 seconds
+models/baseline_8_hlayers_8_hneurons_0.001_0.0001_64.onnx, Train time: 149.115947 seconds
+models/baseline_8_hlayers_16_hneurons_0.001_0.0001_64.onnx, Train time: 174.529637 seconds
+models/baseline_8_hlayers_32_hneurons_0.001_0.0001_64.onnx, Train time: 210.185938 seconds
+models/baseline_8_hlayers_64_hneurons_0.001_0.0001_64.onnx, Train time: 286.586139 seconds
+models/baseline_8_hlayers_128_hneurons_0.001_0.0001_64.onnx, Train time: 586.271113 seconds
+models/baseline_8_hlayers_256_hneurons_0.001_0.0001_64.onnx, Train time: 1437.087366 seconds
+models/baseline_16_hlayers_1_hneurons_0.001_0.0001_64.onnx, Train time: 251.158766 seconds
+models/baseline_16_hlayers_2_hneurons_0.001_0.0001_64.onnx, Train time: 196.778318 seconds
+models/baseline_16_hlayers_4_hneurons_0.001_0.0001_64.onnx, Train time: 257.235057 seconds
+models/baseline_16_hlayers_8_hneurons_0.001_0.0001_64.onnx, Train time: 376.099534 seconds
+models/baseline_16_hlayers_16_hneurons_0.001_0.0001_64.onnx, Train time: 389.332067 seconds
+models/baseline_16_hlayers_32_hneurons_0.001_0.0001_64.onnx, Train time: 441.456243 seconds
+models/baseline_16_hlayers_64_hneurons_0.001_0.0001_64.onnx, Train time: 430.842004 seconds
+models/baseline_16_hlayers_128_hneurons_0.001_0.0001_64.onnx, Train time: 965.849127 seconds
+models/baseline_16_hlayers_256_hneurons_0.001_0.0001_64.onnx, Train time: 1801.389798 seconds
+models/baseline_32_hlayers_1_hneurons_0.001_0.0001_64.onnx, Train time: 327.196152 seconds
+models/baseline_32_hlayers_2_hneurons_0.001_0.0001_64.onnx, Train time: 342.556610 seconds
+models/baseline_32_hlayers_4_hneurons_0.001_0.0001_64.onnx, Train time: 360.341224 seconds
+models/baseline_32_hlayers_8_hneurons_0.001_0.0001_64.onnx, Train time: 371.783174 seconds
+models/baseline_32_hlayers_16_hneurons_0.001_0.0001_64.onnx, Train time: 407.703559 seconds
+models/baseline_32_hlayers_32_hneurons_0.001_0.0001_64.onnx, Train time: 484.995003 seconds
+models/baseline_32_hlayers_64_hneurons_0.001_0.0001_64.onnx, Train time: 715.495767 seconds
+models/baseline_32_hlayers_128_hneurons_0.001_0.0001_64.onnx, Train time: 1591.800721 seconds
+models/baseline_32_hlayers_256_hneurons_0.001_0.0001_64.onnx, Train time: 3021.035232 seconds
+models/baseline_64_hlayers_1_hneurons_0.001_0.0001_64.onnx, Train time: 602.455459 seconds
+models/baseline_64_hlayers_2_hneurons_0.001_0.0001_64.onnx, Train time: 633.019199 seconds
+models/baseline_64_hlayers_4_hneurons_0.001_0.0001_64.onnx, Train time: 643.615138 seconds
+models/baseline_64_hlayers_8_hneurons_0.001_0.0001_64.onnx, Train time: 656.792394 seconds
+models/baseline_64_hlayers_16_hneurons_0.001_0.0001_64.onnx, Train time: 703.149755 seconds
+models/baseline_64_hlayers_32_hneurons_0.001_0.0001_64.onnx, Train time: 833.960414 seconds
+models/baseline_64_hlayers_64_hneurons_0.001_0.0001_64.onnx, Train time: 1281.080974 seconds
+models/baseline_64_hlayers_128_hneurons_0.001_0.0001_64.onnx, Train time: 2808.659553 seconds
+models/baseline_64_hlayers_256_hneurons_0.001_0.0001_64.onnx, Train time: 5398.617554 seconds
+
+1 hidden layers, 1 hidden neurons, 0.9486857142857142 train accuracy, 0.8766666666666667 test accuracy
+1 hidden layers, 2 hidden neurons, 0.9477142857142857 train accuracy, 0.8773333333333333 test accuracy
+1 hidden layers, 4 hidden neurons, 0.9475428571428571 train accuracy, 0.8776666666666667 test accuracy
+1 hidden layers, 8 hidden neurons, 0.9489142857142857 train accuracy, 0.8779333333333333 test accuracy
+1 hidden layers, 16 hidden neurons, 0.9556285714285714 train accuracy, 0.8751333333333333 test accuracy
+1 hidden layers, 32 hidden neurons, 0.9717142857142858 train accuracy, 0.8708666666666667 test accuracy
+1 hidden layers, 64 hidden neurons, 0.9914857142857143 train accuracy, 0.8789333333333333 test accuracy
+1 hidden layers, 128 hidden neurons, 0.9896857142857143 train accuracy, 0.8804 test accuracy
+1 hidden layers, 256 hidden neurons, 0.9886285714285714 train accuracy, 0.8812666666666666 test accuracy
+2 hidden layers, 1 hidden neurons, 0.9566857142857143 train accuracy, 0.8719333333333333 test accuracy
+2 hidden layers, 2 hidden neurons, 0.9544571428571429 train accuracy, 0.8693333333333333 test accuracy
+2 hidden layers, 4 hidden neurons, 0.9946857142857143 train accuracy, 0.8622666666666666 test accuracy
+2 hidden layers, 8 hidden neurons, 0.9984857142857143 train accuracy, 0.8617333333333334 test accuracy
+2 hidden layers, 16 hidden neurons, 0.9841714285714286 train accuracy, 0.8618 test accuracy
+2 hidden layers, 32 hidden neurons, 0.9928571428571429 train accuracy, 0.8616666666666667 test accuracy
+2 hidden layers, 64 hidden neurons, 0.9866571428571429 train accuracy, 0.8684 test accuracy
+2 hidden layers, 128 hidden neurons, 0.9909428571428571 train accuracy, 0.867 test accuracy
+2 hidden layers, 256 hidden neurons, 0.9952571428571428 train accuracy, 0.8650666666666667 test accuracy
+4 hidden layers, 1 hidden neurons, 0.5006857142857143 train accuracy, 0.4984 test accuracy
+4 hidden layers, 2 hidden neurons, 0.9875428571428572 train accuracy, 0.8598 test accuracy
+4 hidden layers, 4 hidden neurons, 0.9742285714285714 train accuracy, 0.866 test accuracy
+4 hidden layers, 8 hidden neurons, 0.9875142857142857 train accuracy, 0.8537333333333333 test accuracy
+4 hidden layers, 16 hidden neurons, 0.9784571428571428 train accuracy, 0.8566666666666667 test accuracy
+4 hidden layers, 32 hidden neurons, 0.9793142857142857 train accuracy, 0.8585333333333334 test accuracy
+4 hidden layers, 64 hidden neurons, 0.9863142857142857 train accuracy, 0.8585333333333334 test accuracy
+4 hidden layers, 128 hidden neurons, 0.9928857142857143 train accuracy, 0.859 test accuracy
+4 hidden layers, 256 hidden neurons, 0.9932 train accuracy, 0.8645333333333334 test accuracy
+8 hidden layers, 1 hidden neurons, 0.5006857142857143 train accuracy, 0.4984 test accuracy
+8 hidden layers, 2 hidden neurons, 0.5006857142857143 train accuracy, 0.4984 test accuracy
+8 hidden layers, 4 hidden neurons, 0.5006857142857143 train accuracy, 0.4984 test accuracy
+8 hidden layers, 8 hidden neurons, 0.5006857142857143 train accuracy, 0.4984 test accuracy
+8 hidden layers, 16 hidden neurons, 0.5006857142857143 train accuracy, 0.4984 test accuracy
+8 hidden layers, 32 hidden neurons, 0.5006857142857143 train accuracy, 0.4984 test accuracy
+8 hidden layers, 64 hidden neurons, 0.5006857142857143 train accuracy, 0.4984 test accuracy
+8 hidden layers, 128 hidden neurons, 0.5006857142857143 train accuracy, 0.4984 test accuracy
+8 hidden layers, 256 hidden neurons, 0.5006857142857143 train accuracy, 0.4984 test accuracy
+16 hidden layers, 1 hidden neurons, 0.5006857142857143 train accuracy, 0.4984 test accuracy
+16 hidden layers, 2 hidden neurons, 0.5006857142857143 train accuracy, 0.4984 test accuracy
+16 hidden layers, 4 hidden neurons, 0.5006857142857143 train accuracy, 0.4984 test accuracy
+16 hidden layers, 8 hidden neurons, 0.5006857142857143 train accuracy, 0.4984 test accuracy
+16 hidden layers, 16 hidden neurons, 0.5006857142857143 train accuracy, 0.4984 test accuracy
+16 hidden layers, 32 hidden neurons, 0.5006857142857143 train accuracy, 0.4984 test accuracy
+16 hidden layers, 64 hidden neurons, 0.5006857142857143 train accuracy, 0.4984 test accuracy
+16 hidden layers, 128 hidden neurons, 0.5006857142857143 train accuracy, 0.4984 test accuracy
+16 hidden layers, 256 hidden neurons, 0.5006857142857143 train accuracy, 0.4984 test accuracy
+32 hidden layers, 1 hidden neurons, 0.5006857142857143 train accuracy, 0.4984 test accuracy
+32 hidden layers, 2 hidden neurons, 0.5006857142857143 train accuracy, 0.4984 test accuracy
+32 hidden layers, 4 hidden neurons, 0.5006857142857143 train accuracy, 0.4984 test accuracy
+32 hidden layers, 8 hidden neurons, 0.5006857142857143 train accuracy, 0.4984 test accuracy
+32 hidden layers, 16 hidden neurons, 0.5006857142857143 train accuracy, 0.4984 test accuracy
+32 hidden layers, 32 hidden neurons, 0.5006857142857143 train accuracy, 0.4984 test accuracy
+32 hidden layers, 64 hidden neurons, 0.5006857142857143 train accuracy, 0.4984 test accuracy
+32 hidden layers, 128 hidden neurons, 0.5006857142857143 train accuracy, 0.4984 test accuracy
+32 hidden layers, 256 hidden neurons, 0.5006857142857143 train accuracy, 0.4984 test accuracy
+64 hidden layers, 1 hidden neurons, 0.5006857142857143 train accuracy, 0.4984 test accuracy
+64 hidden layers, 2 hidden neurons, 0.5006857142857143 train accuracy, 0.4984 test accuracy
+64 hidden layers, 4 hidden neurons, 0.5006857142857143 train accuracy, 0.4984 test accuracy
+64 hidden layers, 8 hidden neurons, 0.5006857142857143 train accuracy, 0.4984 test accuracy
+64 hidden layers, 16 hidden neurons, 0.5006857142857143 train accuracy, 0.4984 test accuracy
+64 hidden layers, 32 hidden neurons, 0.5006857142857143 train accuracy, 0.4984 test accuracy
+64 hidden layers, 64 hidden neurons, 0.5006857142857143 train accuracy, 0.4984 test accuracy
+64 hidden layers, 128 hidden neurons, 0.5006857142857143 train accuracy, 0.4984 test accuracy
+64 hidden layers, 256 hidden neurons, 0.5006857142857143 train accuracy, 0.4984 test accuracy
+{'test_acc': np.float64(0.8812666666666666), 'train_acc': np.float64(0.9886285714285714), 'h_layers': 1, 'h_neurons': 256, 'lr': 0.001, 'wd': 0.0001, 'num_iter': 64}
