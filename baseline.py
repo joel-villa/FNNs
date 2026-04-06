@@ -178,9 +178,9 @@ if __name__ == "__main__":
     # h_neurons = [1, 2, 4, 8, 16]
     # h_layers = [1, 2, 3, 4, 5, 8, 16, 32]
 
-    num_iter = [64]
-    h_neurons = [1, 2, 4, 8, 16, 32, 64, 128, 256]
-    h_layers = [1, 2, 4, 8, 16, 32, 64]
+    # num_iter = [64]
+    # h_neurons = [1, 2, 4, 8, 16, 32, 64, 128, 256]
+    # h_layers = [1, 2, 4, 8, 16, 32, 64]
 
     # num_iter = [128]
     # h_neurons = [2]
@@ -193,6 +193,12 @@ if __name__ == "__main__":
     # h_layers = [1]
     # lr = [0.00001, 0.0001, 0.001, 0.01, 0.1]
     # wd = [0.0000001, 0.000001, 0.00001, 0.0001, 0.001, 0.01, 0.1]
+
+    num_iter = [1024]
+    h_layers = [1]
+    h_neurons = [2]
+    lr = [0.0001]
+    wd = [0.001]
 
     generate_models(h_layers, h_neurons, lr, wd, num_iter)
     results = test_models(h_layers, h_neurons, lr, wd, num_iter)
