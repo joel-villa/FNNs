@@ -163,8 +163,8 @@ def generate_models(h_layers, h_neurons, lrs, wds, num_iters):
                                   save_path=path)
 
 if __name__ == "__main__":
-    lr = [0.001]
-    wd = [0.0001]
+    # lr = [0.001]
+    # wd = [0.0001]
 
     # num_iter = [2]
     # h_neurons = [2]
@@ -194,11 +194,18 @@ if __name__ == "__main__":
     # lr = [0.00001, 0.0001, 0.001, 0.01, 0.1]
     # wd = [0.0000001, 0.000001, 0.00001, 0.0001, 0.001, 0.01, 0.1]
 
-    num_iter = [1024]
+    # num_iter = [1024]
+    # h_layers = [1]
+    # h_neurons = [2]
+    # lr = [0.0001]
+    # wd = [0.001]
+
+    num_iter = [64]
     h_layers = [1]
-    h_neurons = [2]
-    lr = [0.0001]
-    wd = [0.001]
+    h_neurons = [1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048]
+    lr = [0.001]
+    wd = [0.0001]
+
 
     generate_models(h_layers, h_neurons, lr, wd, num_iter)
     results = test_models(h_layers, h_neurons, lr, wd, num_iter)
