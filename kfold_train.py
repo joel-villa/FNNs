@@ -22,11 +22,9 @@ def train_fnn_kfold(num_iter, num_hidden_layers, hidden_neurons, learning_rate, 
     # device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     # net = make_fnn(h_neurons=hidden_neurons, num_hidden_layers=num_hidden_layers).to(device)
 
-    print("test")
     # Get data
     x_train, y_train, _, _ = npz_load()
     x_train, y_train = prepare_data(x_train, y_train)
-    print("test2")
 
     # convert data to tensors, where x_tensor is (N, input dimension) and y is (N, 1)
     x_tensor = torch.from_numpy(x_train).float()
@@ -39,7 +37,6 @@ def train_fnn_kfold(num_iter, num_hidden_layers, hidden_neurons, learning_rate, 
     L = torch.nn.BCEWithLogitsLoss()
     results = {}
 
-    print("test3")
 
     for fold, (train_ids, test_ids) in enumerate(kfold.split(dataset)):
         train_subsampler = SubsetRandomSampler(train_ids)
@@ -57,8 +54,6 @@ def train_fnn_kfold(num_iter, num_hidden_layers, hidden_neurons, learning_rate, 
         
         start = time.perf_counter() #Timing training
 
-        print("test4)")
-        
         # do training
         for epoch in range(0, num_iter):
             current_loss = 0.0
@@ -74,8 +69,6 @@ def train_fnn_kfold(num_iter, num_hidden_layers, hidden_neurons, learning_rate, 
 
         end = time.perf_counter()
 
-        print("test5")
-
         # validation step, evaluation
         net.eval()
         correct, total = 0, 0
@@ -86,7 +79,7 @@ def train_fnn_kfold(num_iter, num_hidden_layers, hidden_neurons, learning_rate, 
                 total += yb.size(0)
                 correct += (predicted == yb).sum().item()
             
-        print('Accuracy for fold %d: %d %%' % (fold, 100.0 * correct / total))
+#        print('Accuracy for fold %d: %d %%' % (fold, 100.0 * correct / total))
         results[fold] = 100.0 * (correct / total)
 
         # save
@@ -106,28 +99,70 @@ def train_fnn_kfold(num_iter, num_hidden_layers, hidden_neurons, learning_rate, 
                     "output": {0: "batch_size"}
                 }
             )
-            print(f"Saved fold {fold} model to {fold_save_path}")
-        print("test6")
-        print(f'K-FOLD CROSS VALIDATION RESULTS FOR {k_folds} FOLDS')
-        sum = 0.0
-        for key, value in results.items():
-            print(f'Fold {key}: {value} %')
-            sum += value
-        print(f'Average: {sum/len(results.items())} %')
+ #           print(f"Saved fold {fold} model to {fold_save_path}")
+ #       print("test6")
+ #       print(f'K-FOLD CROSS VALIDATION RESULTS FOR {k_folds} FOLDS')
+#        sum = 0.0
+#        for key, value in results.items():
+#            print(f'Fold {key}: {value} %')
+#            sum += value
+#        print(f'Average: {sum/len(results.items())} %')
+
+
+def test_models(h_layers, h_neurons, lrs, wds, num_iters):
+    best = {"test_acc": 0,
+            "train_acc": 0, 
+            "h_layers": 0, 
+            "h_neurons": 0, 
+            "lr": 0, 
+            "wd": 0, 
+            "num_iter": 0}
+
+    for hl in h_layers:
+        for hn in h_neurons:
+            for lr in lrs:
+                for wd in wds:
+                    for ni in num_iters:
+                        path = get_path(hl, hn, lr, wd, ni)
+                        test_acc, train_acc = test_fnn(path)
+                        print(f"hl = {hl}, hn = {hn}, lr = {lr}, wd = {wd}, ni = {ni}, train accuracy: {train_acc}, test accuracy: {test_acc}")
+            
+                        if (test_acc > best["test_acc"]):
+                            # new best test accuracy, update all
+                            best["test_acc"]  = test_acc
+                            best["train_acc"] = train_acc
+                            best["h_layers"]  = hl
+                            best["h_neurons"] = hn
+                            best["lr"] = lr
+                            best["wd"] = wd
+                            best["num_iter"] = ni
+    return best
+
+def generate_models(h_layers, h_neurons, lrs, wds, num_iters):
+
+    for hl in h_layers:
+        for hn in h_neurons:
+            for lr in lrs:
+                for wd in wds:
+                    for ni in num_iters:
+                        path = get_path(hl, hn, lr, wd, ni)
+                        print(f"{path}, ", end="")
+                        train_fnn(num_iter=ni,
+                                  hidden_neurons=hn, 
+                                  num_hidden_layers=hl, 
+                                  learning_rate=lr,
+                                  weight_decay=wd,
+                                  save_path=path)
 
 if __name__ == "__main__":
-    lr = 0.001
-    wd = 1e-4
-    num_iter = 32
 
-    h_nuers = [2]
-    h_layers_opts = [2]
-    for h_neur in h_nuers:
-        for n_h_layers in h_layers_opts:
-            path = get_path(n_h_layers, h_neur, lr, wd, num_iter)
-            train_fnn_kfold(num_iter=num_iter,
-                      hidden_neurons=h_neur, 
-                      num_hidden_layers=n_h_layers, 
-                      learning_rate=lr,
-                      weight_decay=wd,
-                      save_path=path)
+    num_iter = [128]
+    h_neurons = [1, 2, 4, 8, 16, 32]
+    h_layers = [1, 2, 4, 8, 16, 32]
+    lr = [0.0001]
+    wd = [0.001]
+    
+    generate_models(h_layers, h_neurons, lr, wd, num_iter)
+    results = test_models(h_layers, h_neurons, lr, wd, num_iter)
+
+    print(results)
