@@ -1,0 +1,16 @@
+models/baseline_4_hlayers_1024_hneurons_1e-05_1e-07_8.onnx, Train time: 243.511251 seconds
+models/baseline_4_hlayers_1024_hneurons_1e-05_1e-06_8.onnx, Train time: 238.922844 seconds
+models/baseline_4_hlayers_1024_hneurons_1e-05_1e-05_8.onnx, Train time: 241.476913 seconds
+models/baseline_4_hlayers_1024_hneurons_1e-05_0.0001_8.onnx, Train time: 261.379621 seconds
+models/baseline_4_hlayers_1024_hneurons_1e-05_0.001_8.onnx, Train time: 327.123306 seconds
+models/baseline_4_hlayers_1024_hneurons_1e-05_0.01_8.onnx, Train time: 424.925891 seconds
+models/baseline_4_hlayers_1024_hneurons_1e-05_0.1_8.onnx, Train time: 437.370219 seconds
+
+hl = 4, hn = 1024, lr = 1e-05, wd = 1e-07, ni = 8, train accuracy: 0.9841142857142857, test accuracy: 0.8795333333333333
+hl = 4, hn = 1024, lr = 1e-05, wd = 1e-06, ni = 8, train accuracy: 0.9862, test accuracy: 0.8792
+hl = 4, hn = 1024, lr = 1e-05, wd = 1e-05, ni = 8, train accuracy: 0.9850571428571429, test accuracy: 0.8801333333333333
+hl = 4, hn = 1024, lr = 1e-05, wd = 0.0001, ni = 8, train accuracy: 0.9709428571428571, test accuracy: 0.8809333333333333
+hl = 4, hn = 1024, lr = 1e-05, wd = 0.001, ni = 8, train accuracy: 0.9421428571428572, test accuracy: 0.8862
+hl = 4, hn = 1024, lr = 1e-05, wd = 0.01, ni = 8, train accuracy: 0.4993142857142857, test accuracy: 0.5016
+hl = 4, hn = 1024, lr = 1e-05, wd = 0.1, ni = 8, train accuracy: 0.4993142857142857, test accuracy: 0.5016
+{'test_acc': np.float64(0.8862), 'train_acc': np.float64(0.9421428571428572), 'h_layers': 4, 'h_neurons': 1024, 'lr': 1e-05, 'wd': 0.001, 'num_iter': 8}
