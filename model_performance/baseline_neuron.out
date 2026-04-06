@@ -1,0 +1,28 @@
+models/baseline_1_hlayers_1_hneurons_0.001_0.0001_64.onnx, Train time: 34.687635 seconds
+models/baseline_1_hlayers_2_hneurons_0.001_0.0001_64.onnx, Train time: 36.967970 seconds
+models/baseline_1_hlayers_4_hneurons_0.001_0.0001_64.onnx, Train time: 38.734081 seconds
+models/baseline_1_hlayers_8_hneurons_0.001_0.0001_64.onnx, Train time: 48.141970 seconds
+models/baseline_1_hlayers_16_hneurons_0.001_0.0001_64.onnx, Train time: 50.395192 seconds
+models/baseline_1_hlayers_32_hneurons_0.001_0.0001_64.onnx, Train time: 61.426799 seconds
+models/baseline_1_hlayers_64_hneurons_0.001_0.0001_64.onnx, Train time: 87.661241 seconds
+models/baseline_1_hlayers_128_hneurons_0.001_0.0001_64.onnx, Train time: 200.182486 seconds
+models/baseline_1_hlayers_256_hneurons_0.001_0.0001_64.onnx, Train time: 407.036200 seconds
+models/baseline_1_hlayers_512_hneurons_0.001_0.0001_64.onnx, Train time: 802.126864 seconds
+models/baseline_1_hlayers_1024_hneurons_0.001_0.0001_64.onnx, Train time: 1663.154578 seconds
+models/baseline_1_hlayers_2048_hneurons_0.001_0.0001_64.onnx, Train time: 3622.125130 seconds
+models/baseline_1_hlayers_4096_hneurons_0.001_0.0001_64.onnx, Train time: 6964.050177 seconds
+
+hl = 1, hn = 1, lr = 0.001, wd = 0.0001, ni = 64, train accuracy: 0.9476571428571429, test accuracy: 0.8767333333333334
+hl = 1, hn = 2, lr = 0.001, wd = 0.0001, ni = 64, train accuracy: 0.9485142857142858, test accuracy: 0.878
+hl = 1, hn = 4, lr = 0.001, wd = 0.0001, ni = 64, train accuracy: 0.9483142857142857, test accuracy: 0.8768
+hl = 1, hn = 8, lr = 0.001, wd = 0.0001, ni = 64, train accuracy: 0.9534, test accuracy: 0.8768666666666667
+hl = 1, hn = 16, lr = 0.001, wd = 0.0001, ni = 64, train accuracy: 0.9513428571428572, test accuracy: 0.8778666666666667
+hl = 1, hn = 32, lr = 0.001, wd = 0.0001, ni = 64, train accuracy: 0.9803142857142857, test accuracy: 0.8718666666666667
+hl = 1, hn = 64, lr = 0.001, wd = 0.0001, ni = 64, train accuracy: 0.9738571428571429, test accuracy: 0.8730666666666667
+hl = 1, hn = 128, lr = 0.001, wd = 0.0001, ni = 64, train accuracy: 0.9917428571428571, test accuracy: 0.8800666666666667
+hl = 1, hn = 256, lr = 0.001, wd = 0.0001, ni = 64, train accuracy: 0.9886571428571429, test accuracy: 0.8797333333333334
+hl = 1, hn = 512, lr = 0.001, wd = 0.0001, ni = 64, train accuracy: 0.9907142857142858, test accuracy: 0.8821333333333333
+hl = 1, hn = 1024, lr = 0.001, wd = 0.0001, ni = 64, train accuracy: 0.9919714285714286, test accuracy: 0.8840666666666667
+hl = 1, hn = 2048, lr = 0.001, wd = 0.0001, ni = 64, train accuracy: 0.9914285714285714, test accuracy: 0.8838
+hl = 1, hn = 4096, lr = 0.001, wd = 0.0001, ni = 64, train accuracy: 0.9911142857142857, test accuracy: 0.8831333333333333
+{'test_acc': np.float64(0.8840666666666667), 'train_acc': np.float64(0.9919714285714286), 'h_layers': 1, 'h_neurons': 1024, 'lr': 0.001, 'wd': 0.0001, 'num_iter': 64}
