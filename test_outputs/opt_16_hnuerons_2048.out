@@ -1,0 +1,15 @@
+/usr/lib/python3.10/copyreg.py:101: FutureWarning: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+  return cls.__new__(cls, *args)
+models/baseline_2_hlayers_16_hneurons_1e-05_0.001_2048.onnx, Train time: 2260.387906 seconds
+[torch.onnx] Obtain model graph for `Sequential([...]` with `torch.export.export(..., strict=False)`...
+[torch.onnx] Obtain model graph for `Sequential([...]` with `torch.export.export(..., strict=False)`... ✅
+[torch.onnx] Run decompositions...
+[torch.onnx] Run decompositions... ✅
+[torch.onnx] Translate the graph into ONNX...
+[torch.onnx] Translate the graph into ONNX... ✅
+[torch.onnx] Optimize the ONNX graph...
+[torch.onnx] Optimize the ONNX graph... ✅
+hl = 2, hn = 16, lr = 1e-05, wd = 0.001, ni = 2048, train accuracy: 0.9522285714285714, test accuracy: 0.8770666666666667
+{'test_acc': np.float64(0.8770666666666667), 'train_acc': np.float64(0.9522285714285714), 'h_layers': 2, 'h_neurons': 16, 'lr': 1e-05, 'wd': 0.001, 'num_iter': 2048}
+18053.21user 15.67system 37:51.76elapsed 795%CPU (0avgtext+0avgdata 2079180maxresident)k
+24inputs+664outputs (16major+83488minor)pagefaults 0swaps
