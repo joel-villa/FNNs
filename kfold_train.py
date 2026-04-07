@@ -8,7 +8,7 @@ from sklearn.model_selection import KFold
 
 from baseline import prepare_data, make_fnn
 
-GPU = False
+GPU = True
 
 # 5,000 features -> first layer has 5000 input neurons
 INPUT_DIMENSION = 5000
@@ -217,13 +217,21 @@ if __name__ == "__main__":
     print(f"We are using: {device}")
 
     # existing params
-    num_iter = 2
+    num_iter = 32
     hidden_neurons = 1024
     num_hidden_layers = 4
     learning_rate = 1e-5
     weight_decay = 0.001
 
-    k_values = [2, 4, 8, 16, 32]
+    k_values = [2, 4, 8, 16]
+
+    # num_iter = 2
+    # hidden_neurons = 2
+    # num_hidden_layers = 1
+    # learning_rate = 1e-5
+    # weight_decay = 0.001
+
+    # k_values = [2]
 
     best, all_results = test_kfold_values(
         num_iter=num_iter,

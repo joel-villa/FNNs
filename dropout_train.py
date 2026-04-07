@@ -7,7 +7,7 @@ from torch.utils.data import TensorDataset, DataLoader, SubsetRandomSampler
 
 from baseline import prepare_data
 
-GPU = False
+GPU = True
 
 # 5,000 features -> first layer has 5000 input neurons
 INPUT_DIMENSION = 5000
@@ -207,7 +207,7 @@ if __name__ == "__main__":
     print(f"We are using: {device}")
 
     # existing params
-    num_iter = 2
+    num_iter = 32
     hidden_neurons = 1024
     num_hidden_layers = 4
     learning_rate = 1e-5
