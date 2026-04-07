@@ -72,6 +72,9 @@ x_dense = x.toarray().astype(np.float32)
 x_df = pd.DataFrame(x_dense)
 x_df['sentiment'] = df['sentiment'].values
 
+# Shuffle the data (for randomized reproducible split)
+x_df_shuffled = x_df.sample(frac=1, random_state=42).reset_index(drop=True)
+
 # split data here
 split_idx = int(0.7 * len(x_df))
 train_df = x_df.iloc[:split_idx]
