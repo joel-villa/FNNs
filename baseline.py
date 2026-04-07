@@ -207,7 +207,7 @@ if __name__ == "__main__":
     # wd = [0.0001]
 
     # num_iter = [8]
-    # h_layers = [2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048]
+    # h_layers = [2, 4, 8, 16, 32, 64, 128, 256, 512]
     # h_neurons = [1024]
     # lr = [0.001]
     # wd = [0.0001]
@@ -218,12 +218,74 @@ if __name__ == "__main__":
     # lr = [0.000001, 0.00001, 0.0001, 0.001, 0.01, 0.1]
     # wd = [0.0001]
 
-    num_iter = [8]
-    h_layers = [4]
-    h_neurons = [1024]
-    lr = [1e-05]
-    wd = [0.0000001, 0.000001, 0.00001, 0.0001, 0.001, 0.01, 0.1]
+    # num_iter = [8]
+    # h_layers = [4]
+    # h_neurons = [1024]
+    # lr = [1e-05]
+    # wd = [0.0000001, 0.000001, 0.00001, 0.0001, 0.001, 0.01, 0.1]
 
+    # num_iter = [1024]
+    # h_layers = [4]
+    # h_neurons = [1024]
+    # lr = [1e-05]
+    # wd = [0.001]
+
+    # 4 layers, 1024 neurons, lr = 1e-05, wd = 0.001
+    # num_iter = [64]
+    # h_layers = [4]
+    # h_neurons = [1024]
+    # lr = [1e-05]
+    # wd = [0.001]
+    
+    # 2 layers, 1024 neurons lr = 1e-05, wd = 0.001, 64 iter
+    # num_iter = [64]
+    # h_layers = [2]
+    # h_neurons = [1024]
+    # lr = [1e-05]
+    # wd = [0.001]
+
+    # 2 layers, 16 neurons lr = 1e-05, wd = 0.001, variable iter
+    # num_iter = [2, 4, 8, 16, 32]
+    # h_layers = [2]
+    # h_neurons = [16]
+    # lr = [1e-05]
+    # wd = [0.001]
+
+    # nueron test again
+    # num_iter = [4]
+    # h_layers = [2]
+    # h_neurons = [1, 2, 4, 8, 16, 32,64]
+    # lr = [1e-05]
+    # wd = [0.001]
+
+    # Hidden layer test
+    # num_iter = [8]
+    # h_layers = [1, 2, 3, 4, 5, 6]
+    # h_neurons = [1024]
+    # lr = [1e-05]
+    # wd = [0.001]
+
+    # lr, wd test 
+    # num_iter = [4]
+    # h_layers = [2]
+    # h_neurons = [16]
+    # lr = [0.0000001, 0.000001, 0.00001,0.0001,0.001,0.01,0.1]
+    # wd = [0.0000001, 0.000001, 0.00001,0.0001,0.001,0.01,0.1]
+
+    # # wd test
+    # num_iter = [4]
+    # h_layers = [2]
+    # h_neurons = [16]
+    # lr = [0.00001, 0.0001, 0.001]
+    # wd = [0.0000000001, 0.000000001, 0.00000001, 0.0000001, 0.000001]
+
+    # NEW OPT
+    #{'test_acc': np.float64(0.8918666666666667), 'train_acc': np.float64(0.9136857142857143), 'h_layers': 2, 'h_neurons': 16, 'lr': 0.0001, 'wd': 1e-07, 'num_iter': 4}
+    num_iter = [16, 32, 64, 128]
+    h_layers = [2]
+    h_neurons = [16]
+    lr = [0.0001]
+    wd = [1e-07]
 
     generate_models(h_layers, h_neurons, lr, wd, num_iter)
     results = test_models(h_layers, h_neurons, lr, wd, num_iter)
