@@ -213,7 +213,7 @@ if __name__ == "__main__":
     learning_rate = 1e-5
     weight_decay = 0.001
 
-    num_models = 8
+    num_models = 16
 
     batch_size = 32
 
@@ -266,7 +266,7 @@ if __name__ == "__main__":
     print(f"    weight_decay: {weight_decay}")
     print(f"    batch_size: {batch_size}")
     print(f"    num_models: {num_models}")
-    print(f"    dropout_probability: {dropout_probability}")
+    print(f"    dropout_probability: {best_results['dropout_probability']}")
     print(f"    train_accuracy: {best_results['train_acc']}%")
     print(f"    test_accuracy: {best_results['test_acc']}%")
     print(f"    train_time: {best_results['train_time']}s")
