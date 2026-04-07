@@ -1,0 +1,57 @@
+Testing k = 2
+fold 1/2: train_acc = 99.68%, val_acc = 84.89%, time = 32.8232s
+fold 2/2: train_acc = 99.62%, val_acc = 84.90%, time = 32.5199s
+
+2-fold results:
+average train accuracy: 99.65%
+average validation accuracy: 84.89%
+average training time: 32.6716s
+
+Testing k = 4
+fold 1/4: train_acc = 98.87%, val_acc = 86.18%, time = 49.3950s
+fold 2/4: train_acc = 99.14%, val_acc = 86.34%, time = 49.5240s
+fold 3/4: train_acc = 99.12%, val_acc = 85.94%, time = 48.8244s
+fold 4/4: train_acc = 99.00%, val_acc = 86.15%, time = 48.7115s
+
+4-fold results:
+average train accuracy: 99.03%
+average validation accuracy: 86.15%
+average training time: 49.1137s
+
+Testing k = 8
+fold 1/8: train_acc = 98.45%, val_acc = 86.93%, time = 56.6088s
+fold 2/8: train_acc = 98.69%, val_acc = 86.74%, time = 56.8248s
+fold 3/8: train_acc = 98.39%, val_acc = 86.74%, time = 56.7564s
+fold 4/8: train_acc = 98.73%, val_acc = 86.35%, time = 56.9528s
+fold 5/8: train_acc = 98.61%, val_acc = 86.74%, time = 56.8566s
+fold 6/8: train_acc = 98.47%, val_acc = 86.61%, time = 56.8969s
+fold 7/8: train_acc = 98.62%, val_acc = 86.51%, time = 56.8138s
+fold 8/8: train_acc = 98.74%, val_acc = 87.29%, time = 56.8416s
+
+8-fold results:
+average train accuracy: 98.59%
+average validation accuracy: 86.74%
+average training time: 56.8190s
+
+Testing k = 16
+fold 1/16: train_acc = 98.34%, val_acc = 85.37%, time = 60.8710s
+fold 2/16: train_acc = 98.18%, val_acc = 87.52%, time = 61.0431s
+fold 3/16: train_acc = 98.10%, val_acc = 87.20%, time = 60.9314s
+fold 4/16: train_acc = 97.84%, val_acc = 87.39%, time = 61.0609s
+fold 5/16: train_acc = 98.30%, val_acc = 86.06%, time = 61.0516s
+fold 6/16: train_acc = 50.17%, val_acc = 48.54%, time = 61.0850s
+fold 7/16: train_acc = 98.32%, val_acc = 86.75%, time = 60.8819s
+fold 8/16: train_acc = 50.17%, val_acc = 48.49%, time = 60.9978s
+fold 9/16: train_acc = 98.66%, val_acc = 87.70%, time = 60.8506s
+fold 10/16: train_acc = 98.27%, val_acc = 86.47%, time = 61.0708s
+fold 11/16: train_acc = 97.81%, val_acc = 85.92%, time = 60.8047s
+fold 12/16: train_acc = 97.87%, val_acc = 87.97%, time = 60.9619s
+fold 13/16: train_acc = 98.30%, val_acc = 86.83%, time = 60.8544s
+fold 14/16: train_acc = 97.97%, val_acc = 87.75%, time = 61.0288s
+fold 15/16: train_acc = 98.61%, val_acc = 86.97%, time = 60.8853s
+fold 16/16: train_acc = 98.20%, val_acc = 85.51%, time = 61.1648s
+
+16-fold results:
+average train accuracy: 92.19%
+average validation accuracy: 82.03%
+average training time: 60.9715s

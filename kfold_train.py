@@ -8,16 +8,21 @@ from sklearn.model_selection import KFold
 
 from baseline import prepare_data, make_fnn
 
+GPU = True
+
 # 5,000 features -> first layer has 5000 input neurons
 INPUT_DIMENSION = 5000
 
 # Binary classification -> one neuron in output layer
 OUTPUT_NEURONS = 1
 
-def get_path(hlayers, hneurons, lr, wd, iter):
-    return f"kfold_models/baseline_{hlayers}_hlayers_{hneurons}_hneurons_{lr}_{wd}_{iter}_kfold.onnx"
+def get_device():
+    if GPU and torch.cuda.is_available():
+        return torch.device("cuda")
+    return torch.device("cpu")
 
 def train_fnn_kfold(num_iter, num_hidden_layers, hidden_neurons, learning_rate, weight_decay, batch_size=10, kfolds=5, save_path=None):
+    device = get_device()
     # Get data
     x_train, y_train, _, _ = npz_load()
     x_train, y_train = prepare_data(x_train, y_train)
@@ -45,7 +50,7 @@ def train_fnn_kfold(num_iter, num_hidden_layers, hidden_neurons, learning_rate, 
         val_loader = torch.utils.data.DataLoader(dataset=dataset, batch_size=batch_size, sampler=val_subsampler)
 
         # make net
-        net = make_fnn(h_neurons=hidden_neurons, num_hidden_layers=num_hidden_layers)
+        net = make_fnn(h_neurons=hidden_neurons, num_hidden_layers=num_hidden_layers).to(device)
         # set optimizer
         optimizer = torch.optim.Adam(net.parameters(),
                             lr=learning_rate, 
@@ -55,21 +60,20 @@ def train_fnn_kfold(num_iter, num_hidden_layers, hidden_neurons, learning_rate, 
 
         # do training
         for epoch in range(0, num_iter):
-            current_loss = 0.0
+            for xb, yb in train_loader:
+                xb = xb.to(device)
+                yb = yb.to(device)
 
-            for data in train_loader:
-                xb, yb = data
                 optimizer.zero_grad()
                 outputs = net.forward(xb)
                 loss = L(outputs, yb)
                 loss.backward()
                 optimizer.step()
-                current_loss += loss.item()
 
         end = time.perf_counter()
 
-        train_acc = get_binary_accuracy(net, train_loader)
-        val_acc = get_binary_accuracy(net, val_loader)
+        train_acc = get_binary_accuracy(net, train_loader, device)
+        val_acc = get_binary_accuracy(net, val_loader, device)
 
         fold_train_accs.append(train_acc)
         fold_val_accs.append(val_acc)
@@ -90,20 +94,23 @@ def train_fnn_kfold(num_iter, num_hidden_layers, hidden_neurons, learning_rate, 
         "fold_times": fold_times,
     }
 
-    print(f"\n{kfolds}-fold results:")
+    print()
+    print(f"{kfolds}-fold results:")
     print(f"average train accuracy: {results['avg_train_acc']:.2f}%")
     print(f"average validation accuracy: {results['avg_val_acc']:.2f}%")
     print(f"average training time: {results['avg_time']:.4f}s")
 
     return results
 
-def get_binary_accuracy(net, data_loader):
+def get_binary_accuracy(net, data_loader, device):
     net.eval()
     correct = 0
     total = 0
 
     with torch.no_grad():
         for xb, yb in data_loader:
+            xb = xb.to(device)
+            yb = yb.to(device)
             output = net(xb)
             predicted = (torch.sigmoid(output) >= 0.5).float()
             total += yb.size(0)
@@ -139,6 +146,8 @@ def test_kfold_values(num_iter, num_hidden_layers, hidden_neurons, learning_rate
     return best, all_results
 
 def traintest_single_fnn(num_iter, num_hidden_layers, hidden_neurons, learning_rate, weight_decay, batch_size=32):
+    device = get_device()
+
     # Get data
     x_train, y_train, x_test, y_test = npz_load()
     x_train, y_train = prepare_data(x_train, y_train)
@@ -155,7 +164,7 @@ def traintest_single_fnn(num_iter, num_hidden_layers, hidden_neurons, learning_r
     train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
     test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
 
-    net = make_fnn(h_neurons=hidden_neurons, num_hidden_layers=num_hidden_layers)
+    net = make_fnn(h_neurons=hidden_neurons, num_hidden_layers=num_hidden_layers).to(device)
 
     # set optimizer
     optimizer = torch.optim.Adam(net.parameters(),
@@ -170,8 +179,10 @@ def traintest_single_fnn(num_iter, num_hidden_layers, hidden_neurons, learning_r
     for epoch in range(0, num_iter):
         current_loss = 0.0
 
-        for data in train_loader:
-            xb, yb = data
+        for xb, yb in train_loader:
+            xb = xb.to(device)
+            yb = yb.to(device)
+
             optimizer.zero_grad()
             outputs = net.forward(xb)
             loss = L(outputs, yb)
@@ -181,8 +192,8 @@ def traintest_single_fnn(num_iter, num_hidden_layers, hidden_neurons, learning_r
 
     end = time.perf_counter()
 
-    train_acc = get_binary_accuracy(net, train_loader)
-    test_acc = get_binary_accuracy(net, test_loader)
+    train_acc = get_binary_accuracy(net, train_loader, device)
+    test_acc = get_binary_accuracy(net, test_loader, device)
 
     results = {
         "train_acc": train_acc,
@@ -190,7 +201,8 @@ def traintest_single_fnn(num_iter, num_hidden_layers, hidden_neurons, learning_r
         "train_time": end - start
     }
 
-    print("\nFinal model results:")
+    print()
+    print("Final model results:")
     print(f"train_acc = {train_acc:.2f}%")
     print(f"test_acc = {test_acc:.2f}%")
     print(f"train_time = {end - start:.4f}s")
@@ -198,14 +210,28 @@ def traintest_single_fnn(num_iter, num_hidden_layers, hidden_neurons, learning_r
     return results
 
 if __name__ == "__main__":
+
+    print("Starting!")
+
+    device = get_device()
+    print(f"We are using: {device}")
+
     # existing params
     num_iter = 32
-    hidden_neurons = 128
+    hidden_neurons = 1024
     num_hidden_layers = 4
-    learning_rate = 0.001
-    weight_decay = 0.0001
+    learning_rate = 1e-5
+    weight_decay = 0.001
 
-    k_values = [2]
+    k_values = [2, 4, 8, 16]
+
+    # num_iter = 2
+    # hidden_neurons = 2
+    # num_hidden_layers = 1
+    # learning_rate = 1e-5
+    # weight_decay = 0.001
+
+    # k_values = [2]
 
     best, all_results = test_kfold_values(
         num_iter=num_iter,
@@ -216,11 +242,13 @@ if __name__ == "__main__":
         k_values=k_values
     )
 
-    print("\nAll k-fold results:")
+    print("All k-fold results:")
     for result in all_results:
         print(result)
 
-    print("\nBest k-fold result:")
+    print()
+
+    print("Best k-fold result:")
     print(best)
 
     final_results = traintest_single_fnn(
