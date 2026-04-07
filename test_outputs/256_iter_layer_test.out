@@ -1,0 +1,39 @@
+/usr/lib/python3.10/copyreg.py:101: FutureWarning: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+  return cls.__new__(cls, *args)
+/usr/lib/python3.10/copyreg.py:101: FutureWarning: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+  return cls.__new__(cls, *args)
+/usr/lib/python3.10/copyreg.py:101: FutureWarning: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+  return cls.__new__(cls, *args)
+models/baseline_1_hlayers_16_hneurons_1e-05_1e-07_256.onnx, Train time: 169.498437 seconds
+[torch.onnx] Obtain model graph for `Sequential([...]` with `torch.export.export(..., strict=False)`...
+[torch.onnx] Obtain model graph for `Sequential([...]` with `torch.export.export(..., strict=False)`... ✅
+[torch.onnx] Run decompositions...
+[torch.onnx] Run decompositions... ✅
+[torch.onnx] Translate the graph into ONNX...
+[torch.onnx] Translate the graph into ONNX... ✅
+[torch.onnx] Optimize the ONNX graph...
+[torch.onnx] Optimize the ONNX graph... ✅
+models/baseline_2_hlayers_16_hneurons_1e-05_1e-07_256.onnx, Train time: 217.790019 seconds
+[torch.onnx] Obtain model graph for `Sequential([...]` with `torch.export.export(..., strict=False)`...
+[torch.onnx] Obtain model graph for `Sequential([...]` with `torch.export.export(..., strict=False)`... ✅
+[torch.onnx] Run decompositions...
+[torch.onnx] Run decompositions... ✅
+[torch.onnx] Translate the graph into ONNX...
+[torch.onnx] Translate the graph into ONNX... ✅
+[torch.onnx] Optimize the ONNX graph...
+[torch.onnx] Optimize the ONNX graph... ✅
+models/baseline_3_hlayers_16_hneurons_1e-05_1e-07_256.onnx, Train time: 265.930863 seconds
+[torch.onnx] Obtain model graph for `Sequential([...]` with `torch.export.export(..., strict=False)`...
+[torch.onnx] Obtain model graph for `Sequential([...]` with `torch.export.export(..., strict=False)`... ✅
+[torch.onnx] Run decompositions...
+[torch.onnx] Run decompositions... ✅
+[torch.onnx] Translate the graph into ONNX...
+[torch.onnx] Translate the graph into ONNX... ✅
+[torch.onnx] Optimize the ONNX graph...
+[torch.onnx] Optimize the ONNX graph... ✅
+hl = 1, hn = 16, lr = 1e-05, wd = 1e-07, ni = 256, train accuracy: 0.9307428571428571, test accuracy: 0.8936
+hl = 2, hn = 16, lr = 1e-05, wd = 1e-07, ni = 256, train accuracy: 0.9471714285714286, test accuracy: 0.8810666666666667
+hl = 3, hn = 16, lr = 1e-05, wd = 1e-07, ni = 256, train accuracy: 0.9501142857142857, test accuracy: 0.8789333333333333
+{'test_acc': np.float64(0.8936), 'train_acc': np.float64(0.9307428571428571), 'h_layers': 1, 'h_neurons': 16, 'lr': 1e-05, 'wd': 1e-07, 'num_iter': 256}
+5238.08user 5.00system 11:10.74elapsed 781%CPU (0avgtext+0avgdata 2082588maxresident)k
+0inputs+1984outputs (25major+93839minor)pagefaults 0swaps
