@@ -24,7 +24,7 @@ def get_device():
 def train_fnn_kfold(num_iter, num_hidden_layers, hidden_neurons, learning_rate, weight_decay, batch_size=10, kfolds=5, save_path=None):
     device = get_device()
     # Get data
-    x_train, y_train, _, _ = npz_load()
+    x_train, y_train, x_test, y_test = npz_load()
     x_train, y_train = prepare_data(x_train, y_train)
 
     # convert data to tensors, where x_tensor is (N, input dimension) and y is (N, 1)
@@ -74,6 +74,7 @@ def train_fnn_kfold(num_iter, num_hidden_layers, hidden_neurons, learning_rate, 
 
         train_acc = get_binary_accuracy(net, train_loader, device)
         val_acc = get_binary_accuracy(net, val_loader, device)
+        
 
         fold_train_accs.append(train_acc)
         fold_val_accs.append(val_acc)
@@ -218,10 +219,10 @@ if __name__ == "__main__":
 
     # existing params
     num_iter = 32
-    hidden_neurons = 1024
-    num_hidden_layers = 4
+    hidden_neurons = 16
+    num_hidden_layers = 2
     learning_rate = 1e-5
-    weight_decay = 0.001
+    weight_decay = 1e-7
 
     k_values = [2, 4, 8, 16]
 
@@ -242,7 +243,7 @@ if __name__ == "__main__":
         k_values=k_values
     )
 
-    print("All k-fold results:")
+    print("All k-fold results across ks:")
     for result in all_results:
         print(result)
 
@@ -259,4 +260,5 @@ if __name__ == "__main__":
         weight_decay=weight_decay
     )
 
+    print("Without k_fold:")
     print(final_results)
