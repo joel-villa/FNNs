@@ -51,3 +51,4 @@ hl = 3, hn = 64, lr = 0.001, wd = 1e-09, ni = 16, train accuracy: 0.986514285714
 hl = 3, hn = 64, lr = 0.001, wd = 1e-08, ni = 16, train accuracy: 0.9903714285714286, test accuracy: 0.8638666666666667
 hl = 3, hn = 64, lr = 0.001, wd = 1e-07, ni = 16, train accuracy: 0.9893142857142857, test accuracy: 0.8698
 {'test_acc': np.float64(0.9009333333333334), 'train_acc': np.float64(0.9280571428571428), 'h_layers': 3, 'h_neurons': 64, 'lr': 1e-05, 'wd': 1e-07, 'num_iter': 16}
+Train time: 14.424186 seconds
