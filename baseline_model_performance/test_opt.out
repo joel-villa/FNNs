@@ -1,0 +1,6 @@
+models/baseline_3_hlayers_64_hneurons_1e-05_1e-09_16.onnx, Train time: 40.212550 seconds
+
+hl = 3, hn = 64, lr = 1e-05, wd = 1e-09, ni = 16, train accuracy: 0.9303714285714285, test accuracy: 0.9007333333333334
+{'test_acc': np.float64(0.9007333333333334), 'train_acc': np.float64(0.9303714285714285), 'h_layers': 3, 'h_neurons': 64, 'lr': 1e-05, 'wd': 1e-09, 'num_iter': 16}
+5.98user 0.36system 0:05.01elapsed 126%CPU (0avgtext+0avgdata 2932844maxresident)k
+0inputs+8outputs (1major+54420minor)pagefaults 0swaps
