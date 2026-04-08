@@ -8,7 +8,7 @@ def csv_load():
     df_test = pd.read_csv('data/test.csv', encoding='utf-8')
     return df_test
 
-def npz_load(size=None):
+def npz_load(size=8000):
     if size == 8000:
         data = np.load('data/imdb_tfidf_data8000.npz')
     elif size == 10000:
