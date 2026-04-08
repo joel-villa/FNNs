@@ -1,0 +1,78 @@
+Starting!
+We are using: cuda
+Proceeding to loop over dropout probabilities...
+Training Bag Net with probability: 0.2
+Bag Net with Dropout Prob: 0.2
+    train_acc = 92.53%
+    test_acc = 89.60%
+    train_time = 123.06s
+
+Training Bag Net with probability: 0.3
+Bag Net with Dropout Prob: 0.3
+    train_acc = 92.25%
+    test_acc = 89.45%
+    train_time = 122.53s
+
+Training Bag Net with probability: 0.4
+Bag Net with Dropout Prob: 0.4
+    train_acc = 91.75%
+    test_acc = 89.45%
+    train_time = 122.56s
+
+Training Bag Net with probability: 0.5
+Bag Net with Dropout Prob: 0.5
+    train_acc = 91.10%
+    test_acc = 89.08%
+    train_time = 122.57s
+
+Training Drop Net with probability: 0.2
+Drop Net with Dropout Prob: 0.2
+    train_acc = 92.54%
+    test_acc = 89.51%
+    train_time = 122.53s
+
+Training Drop Net with probability: 0.3
+Drop Net with Dropout Prob: 0.3
+    train_acc = 92.27%
+    test_acc = 89.47%
+    train_time = 123.90s
+
+Training Drop Net with probability: 0.4
+Drop Net with Dropout Prob: 0.4
+    train_acc = 91.83%
+    test_acc = 89.28%
+    train_time = 122.68s
+
+Training Drop Net with probability: 0.5
+Drop Net with Dropout Prob: 0.5
+    train_acc = 91.10%
+    test_acc = 88.93%
+    train_time = 125.39s
+
+Best Bag Net performance:
+    num_iter: 16
+    hidden_neurons: 64
+    num_hidden_layers: 3
+    learning_rate: 1e-05
+    weight_decay: 1e-07
+    batch_size: 32
+    num_models: 8
+    dropout_probability: 0.2
+    train_accuracy: 92.52571428571429%
+    test_accuracy: 89.6%
+    train_time: 123.06403325800056s
+
+Best Drop Net performance:
+    num_iter: 16
+    hidden_neurons: 64
+    num_hidden_layers: 3
+    learning_rate: 1e-05
+    weight_decay: 1e-07
+    batch_size: 32
+    num_models: 8
+    dropout_probability: 0.2
+    train_accuracy: 92.54%
+    test_accuracy: 89.51333333333334%
+    train_time: 122.53438226400067s
+
+Ending!

@@ -4,11 +4,17 @@ import numpy as np
 from load_data import npz_load
 import onnxruntime as ort
 
-# 5,000 features -> first layer has 5000 input neurons
+GPU = True
 INPUT_DIMENSION = 8000
-
 # Binary classification -> one neuron in output layer
 OUTPUT_NEURONS = 1
+
+def get_device():
+    if GPU and torch.cuda.is_available():
+        return torch.device("cuda")
+    return torch.device("cpu")
+
+device = get_device()
 
 def make_fnn(h_neurons, num_hidden_layers):
     layers = []
@@ -36,7 +42,7 @@ def prepare_data(x, y):
 
 def train_fnn(num_iter, num_hidden_layers, hidden_neurons, learning_rate, weight_decay, save_path=None):
 
-    net = make_fnn(h_neurons=hidden_neurons, num_hidden_layers=num_hidden_layers)
+    net = make_fnn(h_neurons=hidden_neurons, num_hidden_layers=num_hidden_layers).to(device)
 
     # Get data
     x_train, y_train, _, _ = npz_load()
@@ -52,14 +58,14 @@ def train_fnn(num_iter, num_hidden_layers, hidden_neurons, learning_rate, weight
 
     start = time.perf_counter() #Timing training
     # Batch version 
-    x_tensor = torch.from_numpy(x_train).float()  
+    x_tensor = torch.from_numpy(x_train).float()
     y_tensor = torch.from_numpy(y_train).float()  
 
     batch_size = 32
     for epoch in range(num_iter):
         for i in range(0, len(x_tensor), batch_size):
-            xb = x_tensor[i:i+batch_size]
-            yb = y_tensor[i:i+batch_size]
+            xb = x_tensor[i:i+batch_size].to(device)
+            yb = y_tensor[i:i+batch_size].to(device)
 
             output = net.forward(xb)
             loss = L(output, yb)
@@ -74,7 +80,7 @@ def train_fnn(num_iter, num_hidden_layers, hidden_neurons, learning_rate, weight
 
     # Saving in ONNX file
     net.eval()
-    tensor_x = torch.rand((1, INPUT_DIMENSION), dtype=torch.float32)
+    tensor_x = torch.rand((1, INPUT_DIMENSION), dtype=torch.float32).to(device)
     torch.onnx.export(net,                 # model to export
                   (tensor_x,),             # inputs of the model,
                   save_path,               # filename of the ONNX model

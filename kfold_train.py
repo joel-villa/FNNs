@@ -9,10 +9,7 @@ from sklearn.model_selection import KFold
 from baseline import prepare_data, make_fnn
 
 GPU = True
-
-# 5,000 features -> first layer has 5000 input neurons
-INPUT_DIMENSION = 5000
-
+INPUT_DIMENSION = 8000
 # Binary classification -> one neuron in output layer
 OUTPUT_NEURONS = 1
 
@@ -24,7 +21,7 @@ def get_device():
 def train_fnn_kfold(num_iter, num_hidden_layers, hidden_neurons, learning_rate, weight_decay, batch_size=10, kfolds=5, save_path=None):
     device = get_device()
     # Get data
-    x_train, y_train, x_test, y_test = npz_load()
+    x_train, y_train, x_test, y_test = npz_load(INPUT_DIMENSION)
     x_train, y_train = prepare_data(x_train, y_train)
 
     # convert data to tensors, where x_tensor is (N, input dimension) and y is (N, 1)
@@ -150,7 +147,7 @@ def traintest_single_fnn(num_iter, num_hidden_layers, hidden_neurons, learning_r
     device = get_device()
 
     # Get data
-    x_train, y_train, x_test, y_test = npz_load()
+    x_train, y_train, x_test, y_test = npz_load(INPUT_DIMENSION)
     x_train, y_train = prepare_data(x_train, y_train)
     x_test, y_test = prepare_data(x_test, y_test)
 
@@ -218,21 +215,13 @@ if __name__ == "__main__":
     print(f"We are using: {device}")
 
     # existing params
-    num_iter = 32
-    hidden_neurons = 16
-    num_hidden_layers = 2
+    num_iter = 16
+    hidden_neurons = 64
+    num_hidden_layers = 3
     learning_rate = 1e-5
     weight_decay = 1e-7
 
     k_values = [2, 4, 8, 16]
-
-    # num_iter = 2
-    # hidden_neurons = 2
-    # num_hidden_layers = 1
-    # learning_rate = 1e-5
-    # weight_decay = 0.001
-
-    # k_values = [2]
 
     best, all_results = test_kfold_values(
         num_iter=num_iter,
@@ -251,6 +240,7 @@ if __name__ == "__main__":
 
     print("Best k-fold result:")
     print(best)
+    print()
 
     final_results = traintest_single_fnn(
         num_iter=num_iter,

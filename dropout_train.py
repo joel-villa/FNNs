@@ -8,10 +8,7 @@ from torch.utils.data import TensorDataset, DataLoader, SubsetRandomSampler
 from baseline import prepare_data
 
 GPU = True
-
-# 5,000 features -> first layer has 5000 input neurons
-INPUT_DIMENSION = 5000
-
+INPUT_DIMENSION = 8000
 # Binary classification -> one neuron in output layer
 OUTPUT_NEURONS = 1
 
@@ -48,7 +45,7 @@ def train_fnn_dropout(num_iter, num_hidden_layers,
     net = make_fnn_dropout(h_neurons=hidden_neurons, num_hidden_layers=num_hidden_layers, dropout_probability=dropout_probability).to(device)
 
     # Get data
-    x_train, y_train, x_test, y_test = npz_load()
+    x_train, y_train, x_test, y_test = npz_load(INPUT_DIMENSION)
     x_train, y_train = prepare_data(x_train, y_train)
     
     optimizer = torch.optim.Adam(net.parameters(),
@@ -113,7 +110,7 @@ def train_fnn_dropout_bagging(num_iter, num_hidden_layers,
 
     bag_nets = []
 
-    x_train, y_train, x_test, y_test = npz_load()
+    x_train, y_train, x_test, y_test = npz_load(INPUT_DIMENSION)
     x_train, y_train = prepare_data(x_train, y_train)
 
     n_samples = len(x_train)
@@ -236,9 +233,9 @@ if __name__ == "__main__":
     print(f"We are using: {device}")
 
     # existing params
-    num_iter = 32
-    hidden_neurons = 16
-    num_hidden_layers = 2
+    num_iter = 16
+    hidden_neurons = 64
+    num_hidden_layers = 3
     learning_rate = 1e-5
     weight_decay = 1e-7
 
