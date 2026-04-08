@@ -162,16 +162,27 @@ def generate_models(h_layers, h_neurons, lrs, wds, num_iters):
                                   weight_decay=wd,
                                   save_path=path)
 
+def lr_wd_test():
+    num_iter = [16]
+    h_layers = [3]
+    h_neurons = [64]
+    lr = [1e-07, 1e-06, 1e-05, 1e-04, 1e-03]
+    wd = [1e-9, 1e-8, 1e-7, 1e-06, 1e-05,]
+    
+    generate_models(h_layers, h_neurons, lr, wd, num_iter)
+
+    return num_iter, h_layers, h_neurons, lr, wd
+
 if __name__ == "__main__":
 
-    #{'test_acc': np.float64(0.9008666666666667), 'train_acc': np.float64(0.931), 'h_layers': 3, 'h_neurons': 64, 'lr': 1e-05, 'wd': 1e-09, 'num_iter': 16}
+    #{'test_acc': np.float64(0.9009333333333334), 'train_acc': np.float64(0.9280571428571428), 'h_layers': 3, 'h_neurons': 64, 'lr': 1e-05, 'wd': 1e-07, 'num_iter': 16}
     num_iter = [16]
     h_layers = [3]
     h_neurons = [64]
     lr = [1e-05]
-    wd = [1e-9]
+    wd = [1e-07]
 
-    #generate_models(h_layers, h_neurons, lr, wd, num_iter)
+    # num_iter, h_layers, h_neurons, lr, wd = lr_wd_test()
     results = test_models(h_layers, h_neurons, lr, wd, num_iter) 
 
     print(results)
