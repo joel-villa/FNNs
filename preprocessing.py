@@ -62,7 +62,7 @@ tfidf = TfidfTransformer(use_idf=True,
                          smooth_idf=True)
 
 # set max features to 5000
-count = CountVectorizer(max_features=5000)
+count = CountVectorizer(max_features=8000)
 
 x_counts = count.fit_transform(df['review'])
 x = tfidf.fit_transform(x_counts)
@@ -90,7 +90,7 @@ test_x = test_df.drop(columns=['sentiment']).to_numpy(dtype=np.float32)
 test_y = test_df['sentiment'].to_numpy()
 
 np.savez_compressed(
-    'data/imdb_tfidf_data.npz',
+    'data/imdb_tfidf_data8000.npz',
     x_train=train_x,
     y_train=train_y,
     x_test=test_x,
