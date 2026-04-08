@@ -292,7 +292,7 @@ if __name__ == "__main__":
 
     for dropout_probability in dropout_probabilities:
         print(f"Training Drop Net with probability: {dropout_probability}")
-        results = train_fnn_dropout_bagging(num_iter=num_iter, 
+        results = train_fnn_dropout(num_iter=num_iter, 
                         num_hidden_layers=num_hidden_layers, 
                         hidden_neurons=hidden_neurons,
                         learning_rate=learning_rate,
