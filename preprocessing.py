@@ -61,8 +61,8 @@ tfidf = TfidfTransformer(use_idf=True,
                          norm='l2',
                          smooth_idf=True)
 
-# set max features to 5000
-count = CountVectorizer(max_features=5000)
+# set max features to 8000
+count = CountVectorizer(max_features=8000)
 
 x_counts = count.fit_transform(df['review'])
 x = tfidf.fit_transform(x_counts)
@@ -72,22 +72,19 @@ x_dense = x.toarray().astype(np.float32)
 x_df = pd.DataFrame(x_dense)
 x_df['sentiment'] = df['sentiment'].values
 
-# Shuffle the data (for randomized reproducible split)
-x_df_shuffled = x_df.sample(frac=1, random_state=42).reset_index(drop=True)
 
-# split data here
-split_idx = int(0.7 * len(x_df))
-train_df = x_df.iloc[:split_idx]
-test_df = x_df.iloc[split_idx:]
+# separate features and labels
+X = x_df.drop(columns=['sentiment']).to_numpy(dtype=np.float32)
+y = x_df['sentiment'].to_numpy()
 
-# train_df.to_csv('data/train_data.csv', index=False, encoding='utf-8')
-# test_df.to_csv('data/test_data.csv', index=False, encoding='utf-8')
+# use train_test_split (70/30 split, reproducible)
+train_x, test_x, train_y, test_y = train_test_split(
+    X, y,
+    test_size=0.3,
+    random_state=42,
+    shuffle=True
+)
 
-train_x = train_df.drop(columns=['sentiment']).to_numpy(dtype=np.float32)
-train_y = train_df['sentiment'].to_numpy()
-
-test_x = test_df.drop(columns=['sentiment']).to_numpy(dtype=np.float32)
-test_y = test_df['sentiment'].to_numpy()
 
 np.savez_compressed(
     'data/imdb_tfidf_data.npz',
