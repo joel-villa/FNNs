@@ -163,20 +163,15 @@ def generate_models(h_layers, h_neurons, lrs, wds, num_iters):
                                   save_path=path)
 
 if __name__ == "__main__":
+
+    #{'test_acc': np.float64(0.9008666666666667), 'train_acc': np.float64(0.931), 'h_layers': 3, 'h_neurons': 64, 'lr': 1e-05, 'wd': 1e-09, 'num_iter': 16}
     num_iter = [16]
     h_layers = [3]
     h_neurons = [64]
-    lr = [0.0000001, 0.000001, 0.00001, 0.0001, 0.001, 0.01]
-    wd = [0.0000000001, 0.000000001,0.00000001, 0.0000001, 0.000001, 0.00001, 0.0001, 0.001]
-
-    num_iter = [4, 8, 16]
-    h_layers = [3]
-    h_neurons = [64]
     lr = [1e-05]
-    wd = [0.000000000001, 0.00000000001, 0.0000000001, 0.000000001,0.00000001, 0.0000001, 0.000001, 0.00001, 0.0001, 0.001]
+    wd = [1e-9]
 
-
-    generate_models(h_layers, h_neurons, lr, wd, num_iter)
+    #generate_models(h_layers, h_neurons, lr, wd, num_iter)
     results = test_models(h_layers, h_neurons, lr, wd, num_iter) 
 
     print(results)
