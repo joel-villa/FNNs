@@ -87,7 +87,7 @@ train_x, test_x, train_y, test_y = train_test_split(
 
 
 np.savez_compressed(
-    'data/imdb_tfidf_data.npz',
+    'data/imdb_tfidf_data8000.npz',
     x_train=train_x,
     y_train=train_y,
     x_test=test_x,
