@@ -298,8 +298,7 @@ if __name__ == "__main__":
                         learning_rate=learning_rate,
                         weight_decay=weight_decay,
                         batch_size=batch_size,
-                        dropout_probability=dropout_probability,
-                        num_models=num_models)
+                        dropout_probability=dropout_probability)
 
         curr_train_acc_drop = results["train_acc"]
         curr_test_acc_drop = results["test_acc"]
