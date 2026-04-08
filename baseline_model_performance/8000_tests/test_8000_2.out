@@ -1,0 +1,33 @@
+hl = 3, hn = 64, lr = 1e-05, wd = 1e-12, ni = 4, train accuracy: 0.8815714285714286, test accuracy: 0.8772
+hl = 3, hn = 64, lr = 1e-05, wd = 1e-12, ni = 8, train accuracy: 0.9041142857142858, test accuracy: 0.8913333333333333
+hl = 3, hn = 64, lr = 1e-05, wd = 1e-12, ni = 16, train accuracy: 0.9286, test accuracy: 0.9004666666666666
+hl = 3, hn = 64, lr = 1e-05, wd = 1e-11, ni = 4, train accuracy: 0.8718857142857143, test accuracy: 0.862
+hl = 3, hn = 64, lr = 1e-05, wd = 1e-11, ni = 8, train accuracy: 0.9055142857142857, test accuracy: 0.8920666666666667
+hl = 3, hn = 64, lr = 1e-05, wd = 1e-11, ni = 16, train accuracy: 0.9283714285714286, test accuracy: 0.9003333333333333
+hl = 3, hn = 64, lr = 1e-05, wd = 1e-10, ni = 4, train accuracy: 0.8825714285714286, test accuracy: 0.8749333333333333
+hl = 3, hn = 64, lr = 1e-05, wd = 1e-10, ni = 8, train accuracy: 0.9046285714285714, test accuracy: 0.8918666666666667
+hl = 3, hn = 64, lr = 1e-05, wd = 1e-10, ni = 16, train accuracy: 0.9293714285714286, test accuracy: 0.9003333333333333
+hl = 3, hn = 64, lr = 1e-05, wd = 1e-09, ni = 4, train accuracy: 0.8735142857142857, test accuracy: 0.8628
+hl = 3, hn = 64, lr = 1e-05, wd = 1e-09, ni = 8, train accuracy: 0.906, test accuracy: 0.8936
+hl = 3, hn = 64, lr = 1e-05, wd = 1e-09, ni = 16, train accuracy: 0.931, test accuracy: 0.9008666666666667
+hl = 3, hn = 64, lr = 1e-05, wd = 1e-08, ni = 4, train accuracy: 0.8626857142857143, test accuracy: 0.8543333333333333
+hl = 3, hn = 64, lr = 1e-05, wd = 1e-08, ni = 8, train accuracy: 0.9029714285714285, test accuracy: 0.891
+hl = 3, hn = 64, lr = 1e-05, wd = 1e-08, ni = 16, train accuracy: 0.9293428571428571, test accuracy: 0.8998666666666667
+hl = 3, hn = 64, lr = 1e-05, wd = 1e-07, ni = 4, train accuracy: 0.8766, test accuracy: 0.8685333333333334
+hl = 3, hn = 64, lr = 1e-05, wd = 1e-07, ni = 8, train accuracy: 0.9056, test accuracy: 0.8926666666666667
+hl = 3, hn = 64, lr = 1e-05, wd = 1e-07, ni = 16, train accuracy: 0.9294285714285714, test accuracy: 0.9008666666666667
+hl = 3, hn = 64, lr = 1e-05, wd = 1e-06, ni = 4, train accuracy: 0.8792285714285715, test accuracy: 0.8755333333333334
+hl = 3, hn = 64, lr = 1e-05, wd = 1e-06, ni = 8, train accuracy: 0.9021428571428571, test accuracy: 0.8903333333333333
+hl = 3, hn = 64, lr = 1e-05, wd = 1e-06, ni = 16, train accuracy: 0.9289714285714286, test accuracy: 0.9008
+hl = 3, hn = 64, lr = 1e-05, wd = 1e-05, ni = 4, train accuracy: 0.8777714285714285, test accuracy: 0.8736666666666667
+hl = 3, hn = 64, lr = 1e-05, wd = 1e-05, ni = 8, train accuracy: 0.9054857142857143, test accuracy: 0.893
+hl = 3, hn = 64, lr = 1e-05, wd = 1e-05, ni = 16, train accuracy: 0.9287142857142857, test accuracy: 0.8998
+hl = 3, hn = 64, lr = 1e-05, wd = 0.0001, ni = 4, train accuracy: 0.8744, test accuracy: 0.8698
+hl = 3, hn = 64, lr = 1e-05, wd = 0.0001, ni = 8, train accuracy: 0.9029142857142857, test accuracy: 0.8908
+hl = 3, hn = 64, lr = 1e-05, wd = 0.0001, ni = 16, train accuracy: 0.9304, test accuracy: 0.8999333333333334
+hl = 3, hn = 64, lr = 1e-05, wd = 0.001, ni = 4, train accuracy: 0.8618285714285714, test accuracy: 0.8583333333333333
+hl = 3, hn = 64, lr = 1e-05, wd = 0.001, ni = 8, train accuracy: 0.8866, test accuracy: 0.8767333333333334
+hl = 3, hn = 64, lr = 1e-05, wd = 0.001, ni = 16, train accuracy: 0.9173142857142857, test accuracy: 0.8962666666666667
+{'test_acc': np.float64(0.9008666666666667), 'train_acc': np.float64(0.931), 'h_layers': 3, 'h_neurons': 64, 'lr': 1e-05, 'wd': 1e-09, 'num_iter': 16}
+108.87user 6.21system 1:20.87elapsed 142%CPU (0avgtext+0avgdata 2969628maxresident)k
+8inputs+8outputs (0major+249155minor)pagefaults 0swaps
