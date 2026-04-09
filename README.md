@@ -1,17 +1,19 @@
 # FNNs
 Using Feedfoward Neural Networks to perform sentiment analysis on IMDB movie reviews
 
-## To reload data
+## Problem 1
 
-run `python preprocessing.py`
+### To reload data
 
-## To test the already generated baseline model
+- run `python preprocessing.py`
 
-run `python baseline.py`
+## Problem 2
 
-## To regenerate the baseline model
+### To test the already generated baseline model
 
-uncomment line 183: `# lr_wd_test()`
+- run `python baseline.py`
 
+###  To regenerate the baseline model
 
- of baseline.py and run `python baseline.py`
+- Uncomment line 191 in the main function of baseline.py (`# lr_wd_test()`) 
+- Run `python baseline.py`
