@@ -18,17 +18,22 @@ def get_device():
         return torch.device("cuda")
     return torch.device("cpu")
 
-def train_fnn_kfold(num_iter, num_hidden_layers, hidden_neurons, learning_rate, weight_decay, batch_size=10, kfolds=5, save_path=None):
+def train_fnn_kfold(num_iter, num_hidden_layers, hidden_neurons, learning_rate, weight_decay, batch_size=32, kfolds=5, save_path=None):
     device = get_device()
     # Get data
-    x_train, y_train, x_test, y_test = npz_load(INPUT_DIMENSION)
+    x_train, y_train, x_test, y_test = npz_load()
     x_train, y_train = prepare_data(x_train, y_train)
+    x_test, y_test = prepare_data(x_test, y_test)
 
-    # convert data to tensors, where x_tensor is (N, input dimension) and y is (N, 1)
-    x_tensor = torch.from_numpy(x_train).float()
-    y_tensor = torch.from_numpy(y_train).float()
+    x_train_tensor = torch.from_numpy(x_train).float()
+    y_train_tensor = torch.from_numpy(y_train).float()
+    x_test_tensor = torch.from_numpy(x_test).float()
+    y_test_tensor = torch.from_numpy(y_test).float()
 
-    dataset = TensorDataset(x_tensor, y_tensor)
+    dataset = TensorDataset(x_train_tensor, y_train_tensor)
+    test_dataset = TensorDataset(x_test_tensor, y_test_tensor)
+
+    test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
 
     # make kfold
     kfold = KFold(n_splits=kfolds, shuffle=True)
@@ -37,17 +42,19 @@ def train_fnn_kfold(num_iter, num_hidden_layers, hidden_neurons, learning_rate, 
 
     fold_train_accs = []
     fold_val_accs = []
+    fold_test_accs = []
     fold_times = []
+
+    net = make_fnn(h_neurons=hidden_neurons, num_hidden_layers=num_hidden_layers).to(device)
 
     for fold, (train_ids, val_ids) in enumerate(kfold.split(dataset)):
         train_subsampler = SubsetRandomSampler(train_ids)
         val_subsampler = SubsetRandomSampler(val_ids)
 
-        train_loader = torch.utils.data.DataLoader(dataset=dataset, batch_size=batch_size, sampler=train_subsampler)
-        val_loader = torch.utils.data.DataLoader(dataset=dataset, batch_size=batch_size, sampler=val_subsampler)
+        train_loader = DataLoader(dataset=dataset, batch_size=batch_size, sampler=train_subsampler)
+        val_loader = DataLoader(dataset=dataset, batch_size=batch_size, sampler=val_subsampler)
 
         # make net
-        net = make_fnn(h_neurons=hidden_neurons, num_hidden_layers=num_hidden_layers).to(device)
         # set optimizer
         optimizer = torch.optim.Adam(net.parameters(),
                             lr=learning_rate, 
@@ -71,20 +78,24 @@ def train_fnn_kfold(num_iter, num_hidden_layers, hidden_neurons, learning_rate, 
 
         train_acc = get_binary_accuracy(net, train_loader, device)
         val_acc = get_binary_accuracy(net, val_loader, device)
-        
+        test_acc = get_binary_accuracy(net, test_loader, device)
 
         fold_train_accs.append(train_acc)
         fold_val_accs.append(val_acc)
+        fold_test_accs.append(test_acc)
         fold_times.append(end - start)
+
 
         print(f"fold {fold + 1}/{kfolds}: "
               f"train_acc = {train_acc:.2f}%, "
               f"val_acc = {val_acc:.2f}%, "
+              f"test_acc = {test_acc:.2f}%"
               f"time = {end - start:.4f}s")
 
     results = {
         "avg_train_acc": np.mean(fold_train_accs),
         "avg_val_acc": np.mean(fold_val_accs),
+        "avg_test_acc": np.mean(fold_test_accs),
         "avg_time": np.mean(fold_times),
         "kfolds": kfolds,
         "fold_train_accs": fold_train_accs,
@@ -96,6 +107,7 @@ def train_fnn_kfold(num_iter, num_hidden_layers, hidden_neurons, learning_rate, 
     print(f"{kfolds}-fold results:")
     print(f"average train accuracy: {results['avg_train_acc']:.2f}%")
     print(f"average validation accuracy: {results['avg_val_acc']:.2f}%")
+    print(f"average test accuracy: {results['avg_test_acc']:.2f}%")
     print(f"average training time: {results['avg_time']:.4f}s")
 
     return results
@@ -120,6 +132,7 @@ def test_kfold_values(num_iter, num_hidden_layers, hidden_neurons, learning_rate
     best = {
         "avg_val_acc": 0.0,
         "avg_train_acc": 0.0,
+        "avg_test_acc": 0.0,
         "avg_time": 0.0,
         "kfolds": 0
     }
@@ -138,16 +151,17 @@ def test_kfold_values(num_iter, num_hidden_layers, hidden_neurons, learning_rate
 
         all_results.append(results)
 
-        if results["avg_val_acc"] > best["avg_val_acc"]:
+        if results["avg_test_acc"] > best["avg_test_acc"]:
             best = results
 
     return best, all_results
 
+# no k_fold
 def traintest_single_fnn(num_iter, num_hidden_layers, hidden_neurons, learning_rate, weight_decay, batch_size=32):
     device = get_device()
 
     # Get data
-    x_train, y_train, x_test, y_test = npz_load(INPUT_DIMENSION)
+    x_train, y_train, x_test, y_test = npz_load()
     x_train, y_train = prepare_data(x_train, y_train)
     x_test, y_test = prepare_data(x_test, y_test)
 
@@ -215,13 +229,13 @@ if __name__ == "__main__":
     print(f"We are using: {device}")
 
     # existing params
-    num_iter = 16
+    num_iter = 32
     hidden_neurons = 64
     num_hidden_layers = 3
     learning_rate = 1e-5
     weight_decay = 1e-7
 
-    k_values = [2, 4, 8, 16]
+    k_values = [16]
 
     best, all_results = test_kfold_values(
         num_iter=num_iter,
