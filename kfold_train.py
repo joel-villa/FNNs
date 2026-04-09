@@ -21,7 +21,7 @@ def get_device():
 def train_fnn_kfold(num_iter, num_hidden_layers, hidden_neurons, learning_rate, weight_decay, batch_size=32, kfolds=5, save_path=None):
     device = get_device()
     # Get data
-    x_train, y_train, x_test, y_test = npz_load()
+    x_train, y_train, x_test, y_test = npz_load(INPUT_DIMENSION)
     x_train, y_train = prepare_data(x_train, y_train)
     x_test, y_test = prepare_data(x_test, y_test)
 
@@ -45,7 +45,8 @@ def train_fnn_kfold(num_iter, num_hidden_layers, hidden_neurons, learning_rate, 
     fold_test_accs = []
     fold_times = []
 
-    net = make_fnn(h_neurons=hidden_neurons, num_hidden_layers=num_hidden_layers).to(device)
+    nets = []
+
 
     for fold, (train_ids, val_ids) in enumerate(kfold.split(dataset)):
         train_subsampler = SubsetRandomSampler(train_ids)
@@ -55,6 +56,7 @@ def train_fnn_kfold(num_iter, num_hidden_layers, hidden_neurons, learning_rate, 
         val_loader = DataLoader(dataset=dataset, batch_size=batch_size, sampler=val_subsampler)
 
         # make net
+        net = make_fnn(h_neurons=hidden_neurons, num_hidden_layers=num_hidden_layers).to(device)
         # set optimizer
         optimizer = torch.optim.Adam(net.parameters(),
                             lr=learning_rate, 
@@ -89,8 +91,35 @@ def train_fnn_kfold(num_iter, num_hidden_layers, hidden_neurons, learning_rate, 
         print(f"fold {fold + 1}/{kfolds}: "
               f"train_acc = {train_acc:.2f}%, "
               f"val_acc = {val_acc:.2f}%, "
-              f"test_acc = {test_acc:.2f}%"
+              f"test_acc = {test_acc:.2f}%, "
               f"time = {end - start:.4f}s")
+
+        nets.append(net)
+
+    # full eval across all fold nets
+    for net in nets:
+        net.eval()
+
+    correct, total = 0, 0
+
+    computed_res = 0
+
+    with torch.no_grad():
+        for xb, yb in test_loader:
+            xb = xb.to(device)
+            yb = yb.to(device)
+            prob_per_model = []
+            for net in nets:
+                output = net.forward(xb)
+                prob = (torch.sigmoid(output))
+                prob_per_model.append(prob)
+            
+            mean_prob = torch.stack(prob_per_model, dim=0).mean(dim=0)
+            predicted = (mean_prob >= 0.5).float()
+            total += yb.size(0)
+            correct += (predicted == yb).sum().item()
+    
+        computed_res = 100.0 * correct / total
 
     results = {
         "avg_train_acc": np.mean(fold_train_accs),
@@ -101,14 +130,16 @@ def train_fnn_kfold(num_iter, num_hidden_layers, hidden_neurons, learning_rate, 
         "fold_train_accs": fold_train_accs,
         "fold_val_accs": fold_val_accs,
         "fold_times": fold_times,
+        "full_test_acc": computed_res
     }
 
     print()
-    print(f"{kfolds}-fold results:")
+    print(f"Results:")
     print(f"average train accuracy: {results['avg_train_acc']:.2f}%")
     print(f"average validation accuracy: {results['avg_val_acc']:.2f}%")
     print(f"average test accuracy: {results['avg_test_acc']:.2f}%")
     print(f"average training time: {results['avg_time']:.4f}s")
+    print(f"Full evaluation all nets : {results['full_test_acc']:.4f}%")
 
     return results
 
@@ -134,7 +165,8 @@ def test_kfold_values(num_iter, num_hidden_layers, hidden_neurons, learning_rate
         "avg_train_acc": 0.0,
         "avg_test_acc": 0.0,
         "avg_time": 0.0,
-        "kfolds": 0
+        "kfolds": 0,
+        "full_test_acc": 0.0
     }
 
     all_results = []
@@ -151,7 +183,7 @@ def test_kfold_values(num_iter, num_hidden_layers, hidden_neurons, learning_rate
 
         all_results.append(results)
 
-        if results["avg_test_acc"] > best["avg_test_acc"]:
+        if results["full_test_acc"] > best["full_test_acc"]:
             best = results
 
     return best, all_results
@@ -214,7 +246,7 @@ def traintest_single_fnn(num_iter, num_hidden_layers, hidden_neurons, learning_r
     }
 
     print()
-    print("Final model results:")
+    print("No kfold model results:")
     print(f"train_acc = {train_acc:.2f}%")
     print(f"test_acc = {test_acc:.2f}%")
     print(f"train_time = {end - start:.4f}s")
@@ -235,7 +267,7 @@ if __name__ == "__main__":
     learning_rate = 1e-5
     weight_decay = 1e-7
 
-    k_values = [16]
+    k_values = [2]
 
     best, all_results = test_kfold_values(
         num_iter=num_iter,

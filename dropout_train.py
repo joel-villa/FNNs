@@ -341,7 +341,6 @@ if __name__ == "__main__":
     print(f"    learning_rate: {learning_rate}")
     print(f"    weight_decay: {weight_decay}")
     print(f"    batch_size: {batch_size}")
-    print(f"    num_models: {num_models}")
     print(f"    dropout_probability: {best_results_drop['dropout_probability']}")
     print(f"    train_accuracy: {best_results_drop['train_acc']}%")
     print(f"    test_accuracy: {best_results_drop['test_acc']}%")
