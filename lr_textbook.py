@@ -126,7 +126,7 @@ start = time.perf_counter() #Timing training
 gs_lr_tfidf.fit(X_train, y_train)
 end = time.perf_counter()
 
-print(f"Training time: {time}")
+print(f"Training time: {end - start}")
 
 
 print(f'CV Accuracy: {gs_lr_tfidf.best_score_}')
