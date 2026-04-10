@@ -188,71 +188,6 @@ def test_kfold_values(num_iter, num_hidden_layers, hidden_neurons, learning_rate
 
     return best, all_results
 
-# no k_fold
-def traintest_single_fnn(num_iter, num_hidden_layers, hidden_neurons, learning_rate, weight_decay, batch_size=32):
-    device = get_device()
-
-    # Get data
-    x_train, y_train, x_test, y_test = npz_load()
-    x_train, y_train = prepare_data(x_train, y_train)
-    x_test, y_test = prepare_data(x_test, y_test)
-
-    x_train_tensor = torch.from_numpy(x_train).float()
-    y_train_tensor = torch.from_numpy(y_train).float()
-    x_test_tensor = torch.from_numpy(x_test).float()
-    y_test_tensor = torch.from_numpy(y_test).float()
-
-    train_dataset = TensorDataset(x_train_tensor, y_train_tensor)
-    test_dataset = TensorDataset(x_test_tensor, y_test_tensor)
-
-    train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
-    test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
-
-    net = make_fnn(h_neurons=hidden_neurons, num_hidden_layers=num_hidden_layers).to(device)
-
-    # set optimizer
-    optimizer = torch.optim.Adam(net.parameters(),
-                                 lr=learning_rate,
-                                 weight_decay=weight_decay)
-
-    L = torch.nn.BCEWithLogitsLoss()
-
-    start = time.perf_counter()
-
-    # do training
-    for epoch in range(0, num_iter):
-        current_loss = 0.0
-
-        for xb, yb in train_loader:
-            xb = xb.to(device)
-            yb = yb.to(device)
-
-            optimizer.zero_grad()
-            outputs = net.forward(xb)
-            loss = L(outputs, yb)
-            loss.backward()
-            optimizer.step()
-            current_loss += loss.item()
-
-    end = time.perf_counter()
-
-    train_acc = get_binary_accuracy(net, train_loader, device)
-    test_acc = get_binary_accuracy(net, test_loader, device)
-
-    results = {
-        "train_acc": train_acc,
-        "test_acc": test_acc,
-        "train_time": end - start
-    }
-
-    print()
-    print("No kfold model results:")
-    print(f"train_acc = {train_acc:.2f}%")
-    print(f"test_acc = {test_acc:.2f}%")
-    print(f"train_time = {end - start:.4f}s")
-
-    return results
-
 if __name__ == "__main__":
 
     print("Starting!")
@@ -267,7 +202,7 @@ if __name__ == "__main__":
     learning_rate = 1e-5
     weight_decay = 1e-7
 
-    k_values = [2]
+    k_values = [2, 4, 8, 16]
 
     best, all_results = test_kfold_values(
         num_iter=num_iter,
@@ -287,14 +222,3 @@ if __name__ == "__main__":
     print("Best k-fold result:")
     print(best)
     print()
-
-    final_results = traintest_single_fnn(
-        num_iter=num_iter,
-        num_hidden_layers=num_hidden_layers,
-        hidden_neurons=hidden_neurons,
-        learning_rate=learning_rate,
-        weight_decay=weight_decay
-    )
-
-    print("Without k_fold:")
-    print(final_results)
